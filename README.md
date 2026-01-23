@@ -4,8 +4,6 @@
 
 Meridian predicts USD/INR exchange rates 7 days ahead with 68% accuracy, helping freelancers save ₹42,000/year by converting at optimal times.
 
-![Meridian Dashboard](screenshot.png)
-
 ## 🎯 Problem
 
 50M+ Indian freelancers earn in USD/EUR/GBP but lose thousands every year by converting to INR at suboptimal times. Banks and platforms don't tell you WHEN to convert—they just execute whenever you ask.
