@@ -1,0 +1,281 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', sans-serif;
+    --font-syne: 'Syne', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-inter);
+  }
+
+  .font-syne {
+    font-family: var(--font-syne);
+  }
+}
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 15, 15, 30;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+/* HIGH CONTRAST MODE SUPPORT */
+
+@media (prefers-contrast: more) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Manual Preview Support */
+.high-contrast-preview {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+/* Combined Rules for High Contrast */
+@media (prefers-contrast: more) {
+  * {
+    border-color: #ffffff !important;
+    text-shadow: none !important;
+  }
+
+  .backdrop-blur-md,
+  .backdrop-blur-sm,
+  [class*="bg-white/"],
+  [class*="bg-black/"],
+  [class*="bg-opacity-"],
+  [class*="from-"],
+  [class*="to-"] {
+    backdrop-filter: none !important;
+    background-color: #000000 !important;
+    background-image: none !important;
+    border: 2px solid #ffffff !important;
+  }
+
+  p,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  td,
+  th {
+    color: #ffffff !important;
+  }
+
+  .text-\[#28ff00\],
+  .text-green-400 {
+    color: #00ff00 !important;
+    font-weight: 800 !important;
+  }
+
+  .text-red-400 {
+    color: #ff0000 !important;
+    font-weight: 800 !important;
+  }
+
+  .text-gray-400,
+  .text-gray-500 {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  button,
+  a.button,
+  [role="button"] {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #ffffff !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+  }
+
+  button:hover,
+  a.button:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+  }
+
+  table,
+  tr,
+  td,
+  th {
+    border: 1px solid #ffffff !important;
+  }
+
+  input,
+  select,
+  textarea {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Manual class overrides for previewing */
+.high-contrast-preview * {
+  border-color: #ffffff !important;
+  text-shadow: none !important;
+}
+
+.high-contrast-preview .backdrop-blur-md,
+.high-contrast-preview .backdrop-blur-sm,
+.high-contrast-preview [class*="bg-white/"],
+.high-contrast-preview [class*="bg-black/"],
+.high-contrast-preview [class*="bg-opacity-"],
+.high-contrast-preview [class*="from-"],
+.high-contrast-preview [class*="to-"] {
+  backdrop-filter: none !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  border: 2px solid #ffffff !important;
+}
+
+.high-contrast-preview p,
+.high-contrast-preview span,
+.high-contrast-preview h1,
+.high-contrast-preview h2,
+.high-contrast-preview h3,
+.high-contrast-preview h4,
+.high-contrast-preview h5,
+.high-contrast-preview h6,
+.high-contrast-preview td,
+.high-contrast-preview th {
+  color: #ffffff !important;
+}
+
+.high-contrast-preview .text-\[#28ff00\],
+.high-contrast-preview .text-green-400 {
+  color: #00ff00 !important;
+  font-weight: 800 !important;
+}
+
+.high-contrast-preview .text-red-400 {
+  color: #ff0000 !important;
+  font-weight: 800 !important;
+}
+
+.high-contrast-preview .text-gray-400,
+.high-contrast-preview .text-gray-500 {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.high-contrast-preview button,
+.high-contrast-preview a.button,
+.high-contrast-preview [role="button"] {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+}
+
+.high-contrast-preview button:hover,
+.high-contrast-preview a.button:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+.high-contrast-preview table,
+.high-contrast-preview tr,
+.high-contrast-preview td,
+.high-contrast-preview th {
+  border: 1px solid #ffffff !important;
+}
+
+.high-contrast-preview input,
+.high-contrast-preview select,
+.high-contrast-preview textarea {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Custom animations */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 20px rgba(139, 92, 246, 0.5),
+      0 0 40px rgba(139, 92, 246, 0.3),
+      0 0 60px rgba(139, 92, 246, 0.2);
+  }
+
+  50% {
+    opacity: 0.9;
+    text-shadow:
+      0 0 30px rgba(139, 92, 246, 0.7),
+      0 0 50px rgba(139, 92, 246, 0.5),
+      0 0 80px rgba(139, 92, 246, 0.3);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
