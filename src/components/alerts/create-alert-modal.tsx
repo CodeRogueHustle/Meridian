@@ -6,7 +6,7 @@ import { X, Bell, TrendingUp, TrendingDown, Mail, Lock, Sparkles } from 'lucide-
 import { AlertFormData, AlertCondition } from '@/lib/types/alert';
 import { currencyPairs } from '@/lib/currency-data';
 import { WaitlistCard } from '@/components/ui/waitlist-card';
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 // @ts-ignore
 import { api } from "../../../convex/_generated/api";
 
@@ -41,38 +41,47 @@ export default function CreateAlertModal({
     const [showProModal, setShowProModal] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
+    // Fetch live rate for the currently selected pair in the form
+    // @ts-ignore
+    const liveRateDoc = useQuery(api.rates.getLatestRate, {
+        pair: `${formData.fromCurrency}/${formData.toCurrency}`
+    });
+
+    const selectedPair = currencyPairs.find(
+        p => p.from === formData.fromCurrency && p.to === formData.toCurrency
+    );
+
+    // Use live rate if available, fall back to static, then to 1
+    const displayRate = liveRateDoc?.rate ?? selectedPair?.rate ?? 1;
+
     const currencies = ['USD', 'EUR', 'GBP', 'INR', 'JPY', 'AUD', 'CAD', 'CHF'];
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const selectedPair = currencyPairs.find(
-            p => p.from === formData.fromCurrency && p.to === formData.toCurrency
-        );
+        try {
+            await createAlertMutation({
+                pair: `${formData.fromCurrency}/${formData.toCurrency}`,
+                type: formData.condition,
+                targetRate: formData.targetRate,
+                currentRate: displayRate, // Use the live display rate
+                email: formData.email || '',
+                note: formData.note,
+                notificationMethods: formData.notificationMethods as any,
+            });
 
-        await createAlertMutation({
-            pair: `${formData.fromCurrency}/${formData.toCurrency}`, // Match XXX/YYY format from alerts.ts
-            type: formData.condition,
-            targetRate: formData.targetRate,
-            currentRate: selectedPair?.rate || 0,
-            email: formData.email || '',
-            note: formData.note,
-            notificationMethods: formData.notificationMethods as any,
-        });
-
-        // onAlertCreated?.(newAlert); // Type mismatch, skipping data pass-back as query updates auto
-        onAlertCreated?.(null as any);
-        setIsSuccess(true);
+            onAlertCreated?.(null as any);
+            setIsSuccess(true);
+        } catch (err) {
+            console.error("Failed to create alert:", err);
+            alert("Could not create alert. Please ensure you have entered a valid email address.");
+        }
     };
 
     const handleClose = () => {
         setIsSuccess(false);
         onClose();
     };
-
-    const selectedPair = currencyPairs.find(
-        p => p.from === formData.fromCurrency && p.to === formData.toCurrency
-    );
 
     if (!isOpen) return null;
 
@@ -177,12 +186,18 @@ export default function CreateAlertModal({
                                                 ))}
                                             </select>
                                         </div>
+
                                         {selectedPair && (
-                                            <p className="text-xs text-gray-500">Current rate: {selectedPair.rate.toFixed(4)}</p>
+                                            <div className="flex items-center gap-2 mt-2">
+                                                <p className="text-xs text-gray-500">
+                                                    Current rate: <span className="text-white font-mono">{displayRate.toFixed(4)}</span>
+                                                </p>
+                                                {liveRateDoc && (
+                                                    <span className="text-[10px] bg-green-500/20 text-green-400 px-1.5 py-0.5 rounded font-bold uppercase">Live</span>
+                                                )}
+                                            </div>
                                         )}
                                     </div>
-
-                                    {/* Condition */}
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">Alert When</label>
                                         <div className="grid grid-cols-2 gap-3">
@@ -272,6 +287,7 @@ export default function CreateAlertModal({
                                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 placeholder="your@email.com"
                                                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50 placeholder:text-gray-600"
+                                                required // Make required to prevent submission failure
                                             />
                                         </div>
                                     )}

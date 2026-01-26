@@ -15,7 +15,7 @@ export default function StatsBar() {
                 savings: Math.min(prev.savings + 0.1, 2.4),
                 accuracy: Math.min(prev.accuracy + 2, 68)
             }));
-        }, 30);
+        }, 100);
 
         return () => clearInterval(interval);
     }, []);

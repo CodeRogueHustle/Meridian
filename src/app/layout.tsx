@@ -11,6 +11,9 @@ import ConvexClientProvider from "@/components/ConvexClientProvider";
 export const metadata: Metadata = {
     title: "MERIDIAN | AI-Powered Forex & Payments",
     description: "The next generation of global currency management and forex intelligence.",
+    icons: {
+        icon: "/favicon.svg",
+    },
 };
 
 export default function RootLayout({
@@ -20,7 +23,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="dark">
-            <body className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} font-sans`}>
+            <body className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} font-sans`} suppressHydrationWarning>
                 <ConvexClientProvider>
                     {children}
                 </ConvexClientProvider>

@@ -29,11 +29,13 @@
   margin: 0;
 }
 
+html {
+  background-color: black;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: transparent;
   min-height: 100vh;
 }
 
@@ -278,4 +280,41 @@ body {
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+/* Aether Background Fallback Animations */
+@keyframes aether-float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+}
+
+@keyframes aether-pulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-aether-float {
+  animation: aether-float 15s ease-in-out infinite;
+}
+
+.animate-aether-float-reverse {
+  animation: aether-float 12s ease-in-out infinite reverse;
+}
+
+.animate-aether-pulse {
+  animation: aether-pulse 8s ease-in-out infinite;
 }

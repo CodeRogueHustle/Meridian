@@ -47,91 +47,192 @@ void main(){ gl_Position = vec4(position, 0.0, 1.0); }
 
 export default function AetherBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef = useRef<number>();
-  const programRef = useRef<WebGLProgram>();
-  const bufRef = useRef<WebGLBuffer>();
-  const uniTimeRef = useRef<WebGLUniformLocation>();
-  const uniResRef = useRef<WebGLUniformLocation>();
+
+  /* 
+   * AetherBackground.tsx
+   * Robust implementation with CSS fallback
+   */
+  const [error, setError] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const gl = canvas.getContext('webgl2', { alpha: false, antialias: true });
-    if (!gl) return;
-
-    // Compile shaders
-    const createShader = (src: string, type: number) => {
-      const s = gl.createShader(type)!;
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(s));
-      }
-      return s;
-    };
-
-    const program = gl.createProgram()!;
-    gl.attachShader(program, createShader(VERT_SRC, gl.VERTEX_SHADER));
-    gl.attachShader(program, createShader(DEFAULT_FRAG, gl.FRAGMENT_SHADER));
-    gl.linkProgram(program);
-    gl.useProgram(program);
-    programRef.current = program;
-
-    // Attributes & Uniforms
-    const posLoc = gl.getAttribLocation(program, 'position');
-    uniTimeRef.current = gl.getUniformLocation(program, 'time')!;
-    uniResRef.current = gl.getUniformLocation(program, 'resolution')!;
-
-    const buf = gl.createBuffer()!;
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(posLoc);
-    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-    bufRef.current = buf;
-
-    const onResize = () => {
-      // Optimize: Limit DPR to 1.0 max for performance. High-res shaders are very heavy.
-      const dpr = Math.min(window.devicePixelRatio, 1.0);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.uniform2f(uniResRef.current!, canvas.width, canvas.height);
-    };
-
-    window.addEventListener('resize', onResize);
-    onResize();
-
-    // Loop
-    let lastFrameTime = 0;
-    const targetFPS = 30;
-    const frameInterval = 1000 / targetFPS;
-
-    const loop = (now: number) => {
-      rafRef.current = requestAnimationFrame(loop);
-
-      const elapsed = now - lastFrameTime;
-      if (elapsed < frameInterval) return;
-
-      lastFrameTime = now - (elapsed % frameInterval);
-
-      gl.uniform1f(uniTimeRef.current!, now * 1e-3);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    };
-    rafRef.current = requestAnimationFrame(loop);
-
-    return () => {
-      window.removeEventListener('resize', onResize);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (bufRef.current) gl.deleteBuffer(bufRef.current);
-      if (programRef.current) gl.deleteProgram(programRef.current);
-    };
+    setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (error || !mounted) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    let gl: WebGL2RenderingContext | null = null;
+    let animationFrameId: number = 0; // Initialize with 0
+
+    // Cleanup function
+    const cleanup = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      // We generally can't 'delete' a context, but we can lose reference
+    };
+
+    try {
+      gl = canvas.getContext('webgl2', {
+        alpha: true, // Allow transparency so CSS background shows through
+        antialias: true,
+        powerPreference: "high-performance"
+      });
+
+      if (!gl) {
+        console.warn("WebGL2 not available, falling back to CSS");
+        setError(true);
+        return;
+      }
+
+      // -- Shader Compilation Helpers --
+      const createShader = (src: string, type: number) => {
+        const s = gl!.createShader(type);
+        if (!s) throw new Error("Failed to create shader");
+        gl!.shaderSource(s, src);
+        gl!.compileShader(s);
+        if (!gl!.getShaderParameter(s, gl!.COMPILE_STATUS)) {
+          const info = gl!.getShaderInfoLog(s);
+          gl!.deleteShader(s);
+          throw new Error("Shader compile error: " + info);
+        }
+        return s;
+      };
+
+      // -- Init Program --
+      const program = gl.createProgram();
+      if (!program) throw new Error("Failed to create program");
+
+      const vs = createShader(VERT_SRC, gl.VERTEX_SHADER);
+      const fs = createShader(DEFAULT_FRAG, gl.FRAGMENT_SHADER);
+
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        throw new Error("Program link error: " + gl.getProgramInfoLog(program));
+      }
+
+      gl.useProgram(program);
+
+      // Cleanup shaders (linked now)
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+
+      // -- Buffers --
+      const posLoc = gl.getAttribLocation(program, 'position');
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+      // -- Uniforms --
+      const uniTime = gl.getUniformLocation(program, 'time');
+      const uniRes = gl.getUniformLocation(program, 'resolution');
+
+      // -- Resize --
+      const onResize = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2.0);
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        gl!.viewport(0, 0, canvas.width, canvas.height);
+        if (uniRes) gl!.uniform2f(uniRes, canvas.width, canvas.height);
+      };
+
+      window.addEventListener('resize', onResize);
+      onResize();
+
+      // -- Loop --
+      let start = performance.now();
+      const loop = (now: number) => {
+        if (!gl) return;
+        animationFrameId = requestAnimationFrame(loop);
+
+        // Gentle rotation of time for smooth animation
+        if (uniTime) gl.uniform1f(uniTime, (now - start) * 0.001);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      };
+
+      loop(start);
+
+      return () => {
+        window.removeEventListener('resize', onResize);
+        cleanup();
+        // aggressively cleanup WebGL resources
+        if (gl) {
+          gl.deleteBuffer(buf);
+          gl.deleteProgram(program);
+        }
+      };
+
+    } catch (e) {
+      console.error("AetherBackground crashed:", e);
+      setError(true);
+      cleanup();
+    }
+  }, [error, mounted]);
+
+  // Fallback CSS background (Enhanced animated gradient)
+  const cssBackground = (
+    <div className="fixed inset-0 w-full h-full -z-50 pointer-events-none overflow-hidden">
+      {/* Base dark gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black" />
+
+      {/* Animated purple glow */}
+      <div
+        className="absolute inset-0 animate-aether-pulse"
+        style={{
+          background: 'radial-gradient(ellipse 80% 50% at 50% 50%, rgba(147, 51, 234, 0.3) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Moving gradient orbs */}
+      <div
+        className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-aether-float"
+        style={{
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.5) 0%, transparent 70%)',
+          top: '20%',
+          left: '10%',
+        }}
+      />
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-aether-float-reverse"
+        style={{
+          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%)',
+          bottom: '10%',
+          right: '10%',
+        }}
+      />
+
+      {/* Subtle grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+        }}
+      />
+    </div>
+  );
+
+  if (!mounted) return cssBackground;
+  if (error) return cssBackground;
+
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 w-full h-full -z-20 pointer-events-none"
-      style={{ display: 'block' }}
-    />
+    <>
+      {cssBackground} {/* Keep CSS bg behind canvas for depth/fallback */}
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 w-full h-full -z-10 pointer-events-none opacity-60 mix-blend-screen"
+        style={{ display: 'block' }}
+      />
+    </>
   );
 }

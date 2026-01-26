@@ -36,7 +36,7 @@ export default function SavingsCalculator({ amount, setAmount, selectedPairId, s
             .sort((a, b) => b.received - a.received);
 
         return platformResults;
-    }, [amount, selectedPair, platforms, currentRate]);
+    }, [amount, selectedPair, currentRate]);
 
     const bestOption = results[0];
     const comparisonOption = results.find(r => r.type === 'bank') || results[results.length - 1];

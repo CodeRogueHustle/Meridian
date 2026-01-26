@@ -1,13 +1,14 @@
 "use client";
 
+import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2, ArrowUpDown, Filter, Search } from "lucide-react";
 import Link from "next/link";
 import Background from "@/components/Background";
 
 import UserMenu from "@/components/UserMenu";
 import { platforms, currencyPairs, Platform } from "@/lib/currency-data";
-import { Loader2, ArrowUpDown, Filter, Search } from "lucide-react";
 import SavingsCalculator from "@/components/SavingsCalculator";
 import PlatformCard from "@/components/PlatformCard";
 
@@ -19,7 +20,15 @@ import { getAdjustedPlatformRate } from "@/lib/currency-data";
 type SortKey = 'rate' | 'fee' | 'speed' | 'rating';
 
 export default function ComparePage() {
+    const { isLoaded, userId } = useAuth();
     const router = useRouter();
+
+    useEffect(() => {
+        if (isLoaded && !userId) {
+            router.push("/sign-in");
+        }
+    }, [isLoaded, userId, router]);
+
     const [isLoading, setIsLoading] = useState(true);
 
     // State lifted for SavingsCalculator and List

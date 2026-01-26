@@ -22,6 +22,11 @@ export const CanvasRevealEffect = ({
     dotSize = 6,
     showGradient = true,
 }: CanvasRevealEffectProps) => {
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => setMounted(true), []);
+
+    if (!mounted) return <div className={cn("h-full relative w-full bg-black", containerClassName)} />;
+
     return (
         <div className={cn("h-full relative w-full", containerClassName)}>
             <div className="h-full w-full">

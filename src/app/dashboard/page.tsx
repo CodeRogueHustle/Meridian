@@ -1,10 +1,12 @@
 "use client";
 
+import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import Background from "@/components/Background";
 import {
-    ArrowUp, ArrowDown, Info, Bell, MessageSquare, Check, TrendingUp, Loader2, Grid, Star, ExternalLink
+    ArrowUp, ArrowDown, Info, Bell, MessageSquare, Check, TrendingUp, Grid, Star, ExternalLink
 } from "lucide-react";
 import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
@@ -21,7 +23,15 @@ import { useQuery, useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
 export default function Dashboard() {
+    const { isLoaded, userId } = useAuth();
     const router = useRouter();
+
+    useEffect(() => {
+        if (isLoaded && !userId) {
+            router.push("/sign-in");
+        }
+    }, [isLoaded, userId, router]);
+
     const [isSyncing, setIsSyncing] = useState(false);
     const [selectedPair, setSelectedPair] = useState<CurrencyPair>(currencyPairs[0]);
     const [compareMode, setCompareMode] = useState(false);

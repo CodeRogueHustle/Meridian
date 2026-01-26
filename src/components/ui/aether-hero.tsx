@@ -75,6 +75,36 @@ in vec2 position;
 void main(){ gl_Position = vec4(position, 0.0, 1.0); }
 `;
 
+// Helper functions moved outside component to remain stable
+const compileShader = (gl: WebGL2RenderingContext, src: string, type: number) => {
+    const sh = gl.createShader(type)!;
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+        const info = gl.getShaderInfoLog(sh) || 'Unknown shader error';
+        gl.deleteShader(sh);
+        throw new Error(info);
+    }
+    return sh;
+};
+
+const createProgram = (gl: WebGL2RenderingContext, vs: string, fs: string) => {
+    const v = compileShader(gl, vs, gl.VERTEX_SHADER);
+    const f = compileShader(gl, fs, gl.FRAGMENT_SHADER);
+    const prog = gl.createProgram()!;
+    gl.attachShader(prog, v);
+    gl.attachShader(prog, f);
+    gl.linkProgram(prog);
+    gl.deleteShader(v);
+    gl.deleteShader(f);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        const info = gl.getProgramInfoLog(prog) || 'Program link error';
+        gl.deleteProgram(prog);
+        throw new Error(info);
+    }
+    return prog;
+};
+
 export default function AetherHero({
     /* Content */
     title = 'Make the impossible feel inevitable.',
@@ -101,6 +131,9 @@ export default function AetherHero({
     ariaLabel = 'Aurora hero background',
     hideCanvas = false,
 }: AetherHeroProps) {
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => setMounted(true), []);
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const glRef = useRef<WebGL2RenderingContext | null>(null);
     const programRef = useRef<WebGLProgram | null>(null);
@@ -108,35 +141,6 @@ export default function AetherHero({
     const uniTimeRef = useRef<WebGLUniformLocation | null>(null);
     const uniResRef = useRef<WebGLUniformLocation | null>(null);
     const rafRef = useRef<number | null>(null);
-
-    // Compile helpers
-    const compileShader = (gl: WebGL2RenderingContext, src: string, type: number) => {
-        const sh = gl.createShader(type)!;
-        gl.shaderSource(sh, src);
-        gl.compileShader(sh);
-        if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
-            const info = gl.getShaderInfoLog(sh) || 'Unknown shader error';
-            gl.deleteShader(sh);
-            throw new Error(info);
-        }
-        return sh;
-    };
-    const createProgram = (gl: WebGL2RenderingContext, vs: string, fs: string) => {
-        const v = compileShader(gl, vs, gl.VERTEX_SHADER);
-        const f = compileShader(gl, fs, gl.FRAGMENT_SHADER);
-        const prog = gl.createProgram()!;
-        gl.attachShader(prog, v);
-        gl.attachShader(prog, f);
-        gl.linkProgram(prog);
-        gl.deleteShader(v);
-        gl.deleteShader(f);
-        if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-            const info = gl.getProgramInfoLog(prog) || 'Program link error';
-            gl.deleteProgram(prog);
-            throw new Error(info);
-        }
-        return prog;
-    };
 
     // Init GL
     useEffect(() => {
@@ -215,7 +219,7 @@ export default function AetherHero({
             if (bufRef.current) gl.deleteBuffer(bufRef.current);
             if (programRef.current) gl.deleteProgram(programRef.current);
         };
-    }, [fragmentSource, dprMax, clearColor, hideCanvas]);
+    }, [fragmentSource, dprMax, clearColor, hideCanvas, createProgram]);
 
     const justify =
         align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center';
@@ -260,119 +264,119 @@ export default function AetherHero({
             />
 
             {/* Content layer */}
-            <div
-                className="aurora-content"
-                style={{
-                    position: 'relative',
-                    zIndex: 10,
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: justify,
-                    padding: 'min(6vw, 64px)',
-                    color: textColor,
-                    fontFamily: "var(--font-inter), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial",
-                }}
-            >
+            {mounted && (
                 <div
+                    className="aurora-content"
                     style={{
-                        width: '100%',
-                        maxWidth,
-                        marginInline: align === 'center' ? 'auto' : undefined,
-                        textAlign,
+                        position: 'relative',
+                        zIndex: 10,
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: justify,
+                        padding: 'min(6vw, 64px)',
+                        color: textColor,
+                        fontFamily: "var(--font-inter), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial",
                     }}
                 >
-                    {logo && <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: justify }}>{logo}</div>}
-
-                    <h1
-                        className="font-syne"
+                    <div
                         style={{
-                            margin: 0,
-                            fontSize: 'clamp(2.5rem, 8vw, 6rem)',
-                            lineHeight: 0.9,
-                            letterSpacing: '-0.04em',
-                            fontWeight: 800,
-                            textShadow: '0 10px 40px rgba(0,0,0,0.5)',
+                            width: '100%',
+                            maxWidth,
+                            marginInline: align === 'center' ? 'auto' : undefined,
+                            textAlign,
                         }}
                     >
-                        {title}
-                    </h1>
+                        {logo && <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: justify }}>{logo}</div>}
 
-                    {subtitle ? (
-                        <p
+                        <h1
+                            className="font-syne"
                             style={{
-                                marginTop: '1.5rem',
-                                fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
-                                lineHeight: 1.4,
-                                opacity: 0.8,
-                                textShadow: '0 4px 24px rgba(0,0,0,0.35)',
-                                maxWidth: 800,
-                                marginInline: align === 'center' ? 'auto' : undefined,
+                                margin: 0,
+                                fontSize: 'clamp(2.5rem, 8vw, 6rem)',
+                                lineHeight: 0.9,
+                                letterSpacing: '-0.04em',
+                                fontWeight: 800,
+                                textShadow: '0 10px 40px rgba(0,0,0,0.5)',
                             }}
                         >
-                            {subtitle}
-                        </p>
-                    ) : null}
+                            {title}
+                        </h1>
 
-                    {(ctaLabel || secondaryCtaLabel) && (
-                        <div
-                            style={{
-                                display: 'inline-flex',
-                                gap: '16px',
-                                marginTop: '3rem',
-                                flexWrap: 'wrap',
-                            }}
-                        >
-                            {ctaLabel ? (
-                                <Link
-                                    href={ctaHref || '#'}
-                                    className="aurora-btn aurora-btn--primary"
-                                    style={{
-                                        padding: '16px 32px',
-                                        borderRadius: 100,
-                                        background:
-                                            'linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.05))',
-                                        color: textColor,
-                                        textDecoration: 'none',
-                                        fontWeight: 700,
-                                        fontSize: '1.1rem',
-                                        boxShadow:
-                                            'inset 0 0 0 1px rgba(255,255,255,.3), 0 20px 40px rgba(0,0,0,.3)',
-                                        backdropFilter: 'blur(10px) saturate(150%)',
-                                        transition: 'all 0.3s ease',
-                                    }}
-                                >
-                                    {ctaLabel}
-                                </Link>
-                            ) : null}
+                        {subtitle ? (
+                            <p
+                                style={{
+                                    marginTop: '1.5rem',
+                                    fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
+                                    lineHeight: 1.4,
+                                    opacity: 0.8,
+                                    textShadow: '0 4px 24px rgba(0,0,0,0.35)',
+                                    maxWidth: 800,
+                                    marginInline: align === 'center' ? 'auto' : undefined,
+                                }}
+                            >
+                                {subtitle}
+                            </p>
+                        ) : null}
 
-                            {secondaryCtaLabel ? (
-                                <Link
-                                    href={secondaryCtaHref || '#'}
-                                    className="aurora-btn aurora-btn--ghost"
-                                    style={{
-                                        padding: '16px 32px',
-                                        borderRadius: 100,
-                                        background: 'rgba(255,255,255,.05)',
-                                        color: textColor,
-                                        opacity: 0.9,
-                                        textDecoration: 'none',
-                                        fontWeight: 600,
-                                        fontSize: '1.1rem',
-                                        boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.2)',
-                                        backdropFilter: 'blur(5px)',
-                                        transition: 'all 0.3s ease',
-                                    }}
-                                >
-                                    {secondaryCtaLabel}
-                                </Link>
-                            ) : null}
-                        </div>
-                    )}
+                        {(ctaLabel || secondaryCtaLabel) && (
+                            <div
+                                style={{
+                                    display: 'inline-flex',
+                                    gap: '16px',
+                                    marginTop: '3rem',
+                                    flexWrap: 'wrap',
+                                }}
+                            >
+                                {ctaLabel ? (
+                                    <Link
+                                        href={ctaHref || '#'}
+                                        className="aurora-btn aurora-btn--primary"
+                                        style={{
+                                            padding: '16px 32px',
+                                            borderRadius: 100,
+                                            background:
+                                                'linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.05))',
+                                            color: textColor,
+                                            textDecoration: 'none',
+                                            fontWeight: 700,
+                                            fontSize: '1.1rem',
+                                            boxShadow:
+                                                'inset 0 0 0 1px rgba(255,255,255,.3), 0 20px 40px rgba(0,0,0,.3)',
+                                            backdropFilter: 'blur(10px) saturate(150%)',
+                                            transition: 'all 0.3s ease',
+                                        }}
+                                    >
+                                        {ctaLabel}
+                                    </Link>
+                                ) : null}
+
+                                {secondaryCtaLabel ? (
+                                    <Link
+                                        href={secondaryCtaHref || '#'}
+                                        className="aurora-btn aurora-btn--ghost"
+                                        style={{
+                                            padding: '16px 32px',
+                                            borderRadius: 100,
+                                            background: 'rgba(255,255,255,.05)',
+                                            color: textColor,
+                                            opacity: 0.9,
+                                            textDecoration: 'none',
+                                            fontWeight: 600,
+                                            fontSize: '1.1rem',
+                                            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.2)',
+                                            backdropFilter: 'blur(5px)',
+                                            transition: 'all 0.3s ease',
+                                        }}
+                                    >
+                                        {secondaryCtaLabel}
+                                    </Link>
+                                ) : null}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
         </section>
     );
 }
-
-export { AetherHero };

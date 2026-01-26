@@ -1,7 +1,9 @@
 "use client";
 
+import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import Background from "@/components/Background";
 
@@ -19,12 +21,20 @@ import {
     AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
     BarChart, Bar, PieChart, Pie, Cell,
 } from "recharts";
-import { Loader2, Download, CheckCircle, XCircle, TrendingUp, DollarSign, Target, Award } from "lucide-react";
+import { Download, CheckCircle, XCircle, TrendingUp, DollarSign, Target, Award } from "lucide-react";
 
 const COLORS = ['#8b5cf6', '#6366f1', '#3b82f6', '#06b6d4', '#10b981'];
 
 export default function HistoryPage() {
+    const { isLoaded, userId } = useAuth();
     const router = useRouter();
+
+    useEffect(() => {
+        if (isLoaded && !userId) {
+            router.push("/sign-in");
+        }
+    }, [isLoaded, userId, router]);
+
     const [isLoading, setIsLoading] = useState(true);
 
     const [activeTab, setActiveTab] = useState<'predictions' | 'transactions'>('predictions');

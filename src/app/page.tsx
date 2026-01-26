@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AetherBackground from "@/components/AetherBackground";
 import { Brain, MessageSquareText, ArrowRightLeft, Check, Sparkles, ArrowRight, Menu, X } from "lucide-react";
-import { AetherHero } from "@/components/ui/aether-hero";
+import AetherHero from "@/components/ui/aether-hero";
 import { motion, AnimatePresence } from "framer-motion";
 import StatsBar from "@/components/landing/stats-bar";
 import TrustBadges from "@/components/landing/trust-badges";
