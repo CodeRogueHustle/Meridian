@@ -31,7 +31,7 @@ export default function AlertsPage() {
     const updateAlertStatus = useMutation(api.alerts.updateAlertStatus);
 
     // Live rates for alerts checking
-    const activePairs = Array.from(new Set((alertDocs || []).filter((a: any) => a.status === 'active').map((a: any) => a.pair.split('-').join('/').toUpperCase())));
+    const activePairs = Array.from(new Set((alertDocs || []).filter((a: any) => a.status === 'active').map((a: any) => a.pair.toUpperCase())));
     // @ts-ignore
     const liveRates = useQuery(api.rates.getLatestRates, { pairs: activePairs });
 
@@ -44,11 +44,8 @@ export default function AlertsPage() {
             for (const alert of currentAlerts) {
                 if (alert.status !== 'active') continue;
 
-                // Find live rate from fetched data
                 const pairFormat = `${alert.fromCurrency}/${alert.toCurrency}`.toUpperCase();
                 const liveDoc = (liveRates as any[])?.find(r => r && r.pair.toUpperCase() === pairFormat);
-
-                // Fallback to mock if live data not available yet
                 const currentRate = liveDoc?.rate ?? currencyPairs.find(p => p.id === alert.pairId.toLowerCase())?.rate ?? 80;
 
                 const isTriggered = alert.condition === 'above'
@@ -56,12 +53,11 @@ export default function AlertsPage() {
                     : currentRate <= alert.targetRate;
 
                 if (isTriggered) {
-                    // 1. Call API route for Resend
                     const response = await fetch('/api/send-alert', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            to: alert.email || 'user@example.com',
+                            to: alert.email,
                             pair: alert.pairId.toUpperCase(),
                             targetRate: alert.targetRate,
                             currentRate: currentRate,
@@ -70,10 +66,10 @@ export default function AlertsPage() {
                     });
 
                     if (!response.ok) {
-                        console.error('Failed to send email for alert:', alert.id);
+                        const errorData = await response.json();
+                        console.error('Failed to send email:', errorData);
                     }
 
-                    // 2. Update status in Convex
                     await updateAlertStatus({
                         alertId: alert.id as any,
                         status: 'triggered',
@@ -86,9 +82,9 @@ export default function AlertsPage() {
             }
 
             if (triggeredCount > 0) {
-                alert(`🎯 Success! ${triggeredCount} alert(s) triggered and notification emails sent.`);
+                alert(`🎯 Success! ${triggeredCount} alert(s) triggered and notification emails were sent. If you don't see them, check your Spam or Resend dashboard verified domains.`);
             } else {
-                alert("ℹ️ No alerts triggered. All active alerts are still within target ranges.");
+                alert("ℹ️ No alerts triggered. The current market rates haven't hit your target levels yet.");
             }
         } catch (error) {
             console.error('Error checking alerts:', error);
@@ -98,9 +94,45 @@ export default function AlertsPage() {
         }
     };
 
+    const handleSendTestEmail = async () => {
+        if (alerts.length === 0) {
+            alert("Please create an alert first to have a target email address.");
+            return;
+        }
+
+        const testAlert = alerts[0];
+        setIsChecking(true);
+        try {
+            const response = await fetch('/api/send-alert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    to: testAlert.email,
+                    pair: testAlert.pairId.toUpperCase(),
+                    targetRate: testAlert.targetRate,
+                    currentRate: testAlert.currentRate || testAlert.targetRate,
+                    savings: "₹1,500 (Test)"
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(`✅ Test email sent to ${testAlert.email}! \n\nNOTE: If you are using the default Resend configuration (onboarding@resend.dev), it will ONLY arrive if that email matches your Resend account email.`);
+            } else {
+                alert(`❌ Failed to send: ${data.message || data.error}\n\nCheck your console for more details.`);
+                console.error('Test email failed:', data);
+            }
+        } catch (error) {
+            console.error('Test email error:', error);
+            alert("❌ Network error sending test email.");
+        } finally {
+            setIsChecking(false);
+        }
+    };
+
     // Map Convex docs to application Alert type
     const alerts: Alert[] = (alertDocs || []).map((doc: any) => {
-        const [fromCurrency, toCurrency] = (doc.pair || 'USD-INR').split('-');
+        const [fromCurrency, toCurrency] = (doc.pair || 'USD/INR').split('/');
         return {
             id: doc._id,
             fromCurrency: fromCurrency || 'USD',
@@ -143,6 +175,14 @@ export default function AlertsPage() {
                     </div>
 
                     <div className="flex items-center gap-3">
+                        <button
+                            onClick={handleSendTestEmail}
+                            disabled={isChecking || alerts.length === 0}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all text-sm font-bold disabled:opacity-50"
+                        >
+                            <Mail className="w-4 h-4 text-purple-400" />
+                            Send Test
+                        </button>
                         <button
                             onClick={handleCheckAlerts}
                             disabled={isChecking || activeCount === 0}

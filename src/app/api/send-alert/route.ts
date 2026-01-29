@@ -56,11 +56,11 @@ export async function POST(request: Request) {
   const RESEND_API_KEY = getSecureApiKey('RESEND_API_KEY');
 
   if (!RESEND_API_KEY) {
-    console.error('[SECURITY] RESEND_API_KEY not configured or invalid');
+    console.error('[SECURITY] RESEND_API_KEY is completely missing from environment variables');
     return NextResponse.json(
       {
         error: 'Email service unavailable',
-        message: 'Alert notification service is not configured'
+        message: 'RESEND_API_KEY is not configured in environment variables.'
       },
       { status: 503 }
     );
@@ -175,12 +175,17 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error('[SECURITY] Resend API Error:', error);
+      console.error('[SECURITY] Resend API Error Response:', JSON.stringify(error));
       return NextResponse.json(
-        { error: 'Failed to send notification' },
+        {
+          error: 'Failed to send notification',
+          details: error
+        },
         { status: 500 }
       );
     }
+
+    console.log(`[SECURITY] Alert email sent successfully to ${safeEmail}. Message ID: ${data?.id}`);
 
     return NextResponse.json(
       { success: true, messageId: data?.id },
