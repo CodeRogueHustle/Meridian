@@ -18,9 +18,54 @@ export default function SubscriptionPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-purple-500/30">
+        <div className="min-h-screen bg-[#050505] text-white selection:bg-purple-500/30 relative overflow-hidden">
+            {/* Animated Background */}
+            <div className="fixed inset-0 z-0">
+                <div
+                    className="absolute inset-0 opacity-40"
+                    style={{
+                        background: `radial-gradient(circle at 50% 50%, #3a0ca3 0%, transparent 50%)`,
+                        filter: 'blur(100px)',
+                    }}
+                />
+                <motion.div
+                    animate={{
+                        x: [0, 100, -100, 0],
+                        y: [0, -50, 50, 0],
+                    }}
+                    transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-20"
+                    style={{
+                        background: 'radial-gradient(circle, #3a0ca3 0%, transparent 70%)',
+                        filter: 'blur(80px)',
+                    }}
+                />
+                <motion.div
+                    animate={{
+                        x: [0, -100, 100, 0],
+                        y: [0, 50, -50, 0],
+                    }}
+                    transition={{
+                        duration: 25,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full opacity-20"
+                    style={{
+                        background: 'radial-gradient(circle, #3a0ca3 0%, transparent 70%)',
+                        filter: 'blur(80px)',
+                    }}
+                />
+                {/* Subtle Grain Effect */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            </div>
+
             {/* Header */}
-            <header className="sticky top-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
+            <header className="sticky top-0 z-50 border-b border-white/5 bg-[#050505]/60 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <Link href="/dashboard" className="p-2 rounded-xl hover:bg-white/5 transition-colors">
