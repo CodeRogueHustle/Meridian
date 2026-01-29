@@ -219,7 +219,7 @@ export default function AetherHero({
             if (bufRef.current) gl.deleteBuffer(bufRef.current);
             if (programRef.current) gl.deleteProgram(programRef.current);
         };
-    }, [fragmentSource, dprMax, clearColor, hideCanvas, createProgram]);
+    }, [fragmentSource, dprMax, clearColor, hideCanvas]);
 
     const justify =
         align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center';
