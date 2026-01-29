@@ -299,9 +299,9 @@ export default function Dashboard() {
                     <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-4">
                             {selectedPair.prediction24h >= 0 ? (
-                                <TrendingUp className="w-24 h-24 text-[#28ff00] opacity-20" />
+                                <TrendingUp size={96} stroke="#28ff00" strokeWidth={3} className="opacity-30" />
                             ) : (
-                                <TrendingDown className="w-24 h-24 text-red-500 opacity-20" />
+                                <TrendingDown size={96} stroke="#f87171" strokeWidth={3} className="opacity-30" />
                             )}
                         </div>
                         <h3 className="text-gray-400 mb-4 font-bold text-sm uppercase tracking-widest">24h Prediction</h3>
