@@ -228,15 +228,15 @@ export default function Dashboard() {
                                 <p className="font-semibold text-white">{pair.from} → {pair.to}</p>
                                 <div className="flex items-end justify-between mt-2">
                                     <span className="text-2xl font-bold">{formatCurrency(pair.rate, pair.rate < 10 ? 4 : 2)}</span>
-                                    <span className={`text-sm flex items-center ${pair.change24h >= 0 ? 'text-[#28ff00]' : 'text-red-400'}`}>
-                                        {pair.change24h >= 0 ? <ArrowUp className="w-3 h-3 text-[#28ff00]" /> : <ArrowDown className="w-3 h-3" />}
+                                    <span className={`text-sm flex items-center ${pair.change24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                                        {pair.change24h >= 0 ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
                                         {Math.abs(pair.change24h)}%
                                     </span>
                                 </div>
                                 <div className="h-12 mt-3">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <LineChart data={pair.chartData}>
-                                            <Line type="monotone" dataKey="rate" stroke={pair.change24h >= 0 ? '#28ff00' : '#ef4444'} strokeWidth={2} dot={false} />
+                                            <Line type="monotone" dataKey="rate" stroke={pair.change24h >= 0 ? '#10b981' : '#ef4444'} strokeWidth={2} dot={false} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -299,9 +299,19 @@ export default function Dashboard() {
                     <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-4">
                             {selectedPair.prediction24h >= 0 ? (
-                                <TrendingUp size={96} stroke="#28ff00" strokeWidth={3} className="opacity-30" />
+                                <TrendingUp
+                                    size={96}
+                                    color="#28ff00"
+                                    strokeWidth={3}
+                                    className="opacity-100 drop-shadow-[0_0_15px_rgba(40,255,0,0.6)]"
+                                />
                             ) : (
-                                <TrendingDown size={96} stroke="#f87171" strokeWidth={3} className="opacity-30" />
+                                <TrendingDown
+                                    size={96}
+                                    color="#f87171"
+                                    strokeWidth={3}
+                                    className="opacity-100 drop-shadow-[0_0_15px_rgba(248,113,113,0.6)]"
+                                />
                             )}
                         </div>
                         <h3 className="text-gray-400 mb-4 font-bold text-sm uppercase tracking-widest">24h Prediction</h3>
