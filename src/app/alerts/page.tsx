@@ -172,7 +172,7 @@ export default function AlertsPage() {
             {/* Main Content */}
             <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="grid gap-4 mb-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))' }}>
                     <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                         <div className="flex items-center gap-2 text-green-400 mb-2">
                             <Bell className="w-4 h-4" />
@@ -252,7 +252,7 @@ export default function AlertsPage() {
                         </button>
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))' }}>
                         {filteredAlerts.map((alert) => (
                             <AlertCard key={alert.id} alert={alert} />
                         ))}

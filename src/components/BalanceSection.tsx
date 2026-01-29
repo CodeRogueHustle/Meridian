@@ -17,7 +17,7 @@ export default function BalanceSection() {
     const totalValueUSD = 8245.80;
 
     return (
-        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid gap-6 mb-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))' }}>
             {/* Total Balance Card */}
             <div className="lg:col-span-2 relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-purple-900/50 via-gray-900 to-black border border-white/10 backdrop-blur-md group">
                 {/* Background decorative elements */}

@@ -92,7 +92,7 @@ export default function Home() {
 
             {/* Features Section */}
             <section id="features" className="py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid gap-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))' }}>
                     {/* Card 1 */}
                     <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-purple-500/30 transition-colors group">
                         <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
@@ -140,7 +140,7 @@ export default function Home() {
                     <p className="text-gray-400 max-w-2xl mx-auto">Get started for free during our beta or secure early-bird pricing for our upcoming premium plans.</p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8 items-start">
+                <div className="grid gap-8 items-start" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))' }}>
 
                     {/* Free */}
                     <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm relative overflow-hidden group">

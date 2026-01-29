@@ -203,7 +203,7 @@ export default function ComparePage() {
                     </div>
 
                     {/* Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))' }}>
                         {filteredPlatforms.map(platform => (
                             <PlatformCard
                                 key={platform.id}

@@ -206,7 +206,7 @@ export default function Dashboard() {
                 </div>
 
                 {compareMode && (
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
                         {watchlistPairs.map((pair) => (
                             <div
                                 key={pair.id}
@@ -245,7 +245,7 @@ export default function Dashboard() {
                     </div>
                 )}
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 450px), 1fr))' }}>
                     <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
                         <div className="flex justify-between items-start mb-4">
                             <div className="flex items-center gap-3">
@@ -362,7 +362,7 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="grid lg:grid-cols-3 gap-6">
+                <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))' }}>
                     <div className="lg:col-span-2 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
                         <h3 className="text-lg font-semibold mb-6">7-Day History</h3>
                         <div className="h-[300px] w-full">

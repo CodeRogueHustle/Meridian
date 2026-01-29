@@ -45,7 +45,7 @@ export default function SavingsCalculator({ amount, setAmount, selectedPairId, s
 
     return (
         <div className="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-8 backdrop-blur-sm shadow-xl">
-            <div className="flex flex-col lg:flex-row gap-8 items-start">
+            <div className="grid gap-8 items-start" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))' }}>
 
                 {/* Inputs Section */}
                 <div className="w-full lg:w-1/3 space-y-6">
@@ -54,7 +54,7 @@ export default function SavingsCalculator({ amount, setAmount, selectedPairId, s
                         <p className="text-gray-400 text-sm">See how much you save vs banks</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-black/20 rounded-2xl border border-white/5">
+                    <div className="grid gap-6 mb-8 p-6 bg-black/20 rounded-2xl border border-white/5" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))' }}>
                         <div className="space-y-2">
                             <label className="text-sm text-gray-400 block ml-1 font-medium">Currency Pair</label>
                             <CurrencySelector

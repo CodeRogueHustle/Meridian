@@ -87,7 +87,7 @@ export default function HistoryPage() {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
                 {/* Stats Cards */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))' }}>
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="p-2 rounded-lg bg-purple-500/20">
@@ -134,7 +134,7 @@ export default function HistoryPage() {
                 </div>
 
                 {/* Charts Row */}
-                <div className="grid lg:grid-cols-3 gap-6">
+                <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))' }}>
                     {/* Accuracy Over Time */}
                     <div className="lg:col-span-2 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                         <h3 className="text-lg font-semibold mb-4">Accuracy Over Time</h3>
