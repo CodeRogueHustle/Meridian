@@ -72,9 +72,10 @@ export default function CreateAlertModal({
 
             onAlertCreated?.(null as any);
             setIsSuccess(true);
-        } catch (err) {
+        } catch (err: any) {
             console.error("Failed to create alert:", err);
-            alert("Could not create alert. Please ensure you have entered a valid email address.");
+            const errorMessage = err?.message || err?.data?.message || String(err);
+            alert(`Could not create alert: ${errorMessage}`);
         }
     };
 
