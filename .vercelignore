@@ -1,0 +1,7 @@
+
+.next/
+.vercel/
+out/
+build/
+*.log
+node_modules/
