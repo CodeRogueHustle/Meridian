@@ -94,41 +94,7 @@ export default function AlertsPage() {
         }
     };
 
-    const handleSendTestEmail = async () => {
-        if (alerts.length === 0) {
-            alert("Please create an alert first to have a target email address.");
-            return;
-        }
 
-        const testAlert = alerts[0];
-        setIsChecking(true);
-        try {
-            const response = await fetch('/api/send-alert', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    to: testAlert.email,
-                    pair: testAlert.pairId.toUpperCase(),
-                    targetRate: testAlert.targetRate,
-                    currentRate: testAlert.currentRate || testAlert.targetRate,
-                    savings: "₹1,500 (Test)"
-                })
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                alert(`✅ Test email sent to ${testAlert.email}! \n\nNOTE: If you are using the default Resend configuration (onboarding@resend.dev), it will ONLY arrive if that email matches your Resend account email.`);
-            } else {
-                alert(`❌ Failed to send: ${data.message || data.error}\n\nCheck your console for more details.`);
-                console.error('Test email failed:', data);
-            }
-        } catch (error) {
-            console.error('Test email error:', error);
-            alert("❌ Network error sending test email.");
-        } finally {
-            setIsChecking(false);
-        }
-    };
 
     // Map Convex docs to application Alert type
     const alerts: Alert[] = (alertDocs || []).map((doc: any) => {
@@ -175,14 +141,6 @@ export default function AlertsPage() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <button
-                            onClick={handleSendTestEmail}
-                            disabled={isChecking || alerts.length === 0}
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all text-sm font-bold disabled:opacity-50"
-                        >
-                            <Mail className="w-4 h-4 text-purple-400" />
-                            Send Test
-                        </button>
                         <button
                             onClick={handleCheckAlerts}
                             disabled={isChecking || activeCount === 0}

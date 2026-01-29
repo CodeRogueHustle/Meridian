@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Bell, TrendingUp, TrendingDown, Mail, Lock, Sparkles } from 'lucide-react';
 import { AlertFormData, AlertCondition } from '@/lib/types/alert';
@@ -154,7 +155,7 @@ export default function CreateAlertModal({
                                                     Done
                                                 </button>
                                                 <p className="text-xs text-gray-500 mt-2">
-                                                    Want smarter alerts? <a href="#" className="text-purple-400 hover:underline">Upgrade to Pro</a>
+                                                    Want smarter alerts? <Link href="/subscription" className="text-purple-400 hover:underline">Upgrade to Pro</Link>
                                                 </p>
                                             </div>
                                         }
@@ -352,12 +353,13 @@ export default function CreateAlertModal({
                                     <p className="text-3xl font-bold text-white mb-6">
                                         $12<span className="text-lg text-gray-400">/month</span>
                                     </p>
-                                    <button
+                                    <Link
+                                        href="/subscription"
+                                        className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold mb-3 block text-center"
                                         onClick={() => setShowProModal(false)}
-                                        className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold mb-3"
                                     >
                                         Upgrade Now
-                                    </button>
+                                    </Link>
                                     <button
                                         onClick={() => setShowProModal(false)}
                                         className="text-gray-400 text-sm hover:text-white transition-colors"
