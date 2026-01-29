@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Background from "@/components/Background";
 import {
-    ArrowUp, ArrowDown, Info, Bell, MessageSquare, Check, TrendingUp, Grid, Star, ExternalLink
+    ArrowUp, ArrowDown, Info, Bell, MessageSquare, Check, TrendingUp, TrendingDown, Grid, Star, ExternalLink
 } from "lucide-react";
 import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
@@ -228,15 +228,15 @@ export default function Dashboard() {
                                 <p className="font-semibold text-white">{pair.from} → {pair.to}</p>
                                 <div className="flex items-end justify-between mt-2">
                                     <span className="text-2xl font-bold">{formatCurrency(pair.rate, pair.rate < 10 ? 4 : 2)}</span>
-                                    <span className={`text-sm flex items-center ${pair.change24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                                        {pair.change24h >= 0 ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
+                                    <span className={`text-sm flex items-center ${pair.change24h >= 0 ? 'text-[#28ff00]' : 'text-red-400'}`}>
+                                        {pair.change24h >= 0 ? <ArrowUp className="w-3 h-3 text-[#28ff00]" /> : <ArrowDown className="w-3 h-3" />}
                                         {Math.abs(pair.change24h)}%
                                     </span>
                                 </div>
                                 <div className="h-12 mt-3">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <LineChart data={pair.chartData}>
-                                            <Line type="monotone" dataKey="rate" stroke={pair.change24h >= 0 ? '#10b981' : '#ef4444'} strokeWidth={2} dot={false} />
+                                            <Line type="monotone" dataKey="rate" stroke={pair.change24h >= 0 ? '#28ff00' : '#ef4444'} strokeWidth={2} dot={false} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -298,7 +298,11 @@ export default function Dashboard() {
 
                     <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-4">
-                            <TrendingUp className="w-24 h-24 text-[#28ff00] opacity-10" />
+                            {selectedPair.prediction24h >= 0 ? (
+                                <TrendingUp className="w-24 h-24 text-[#28ff00] opacity-20" />
+                            ) : (
+                                <TrendingDown className="w-24 h-24 text-red-500 opacity-20" />
+                            )}
                         </div>
                         <h3 className="text-gray-400 mb-4 font-bold text-sm uppercase tracking-widest">24h Prediction</h3>
                         <div className="flex items-end gap-4 mb-6">
