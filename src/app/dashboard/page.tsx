@@ -164,7 +164,7 @@ export default function Dashboard() {
             <header className="sticky top-0 z-50 border-b border-white/10 bg-black/50 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                     <Link href="/" className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-indigo-200">
-                        MERIDIAN
+                        MERIDIAN FX
                     </Link>
 
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
@@ -228,15 +228,15 @@ export default function Dashboard() {
                                 <p className="font-semibold text-white">{pair.from} → {pair.to}</p>
                                 <div className="flex items-end justify-between mt-2">
                                     <span className="text-2xl font-bold">{formatCurrency(pair.rate, pair.rate < 10 ? 4 : 2)}</span>
-                                    <span className={`text-sm flex items-center ${pair.change24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                                        {pair.change24h >= 0 ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
+                                    <span className={`text-sm flex items-center ${pair.change24h >= 0 ? 'text-[#28ff00]' : 'text-red-400'}`}>
+                                        {pair.change24h >= 0 ? <ArrowUp className="w-3 h-3 text-[#28ff00]" /> : <ArrowDown className="w-3 h-3" />}
                                         {Math.abs(pair.change24h)}%
                                     </span>
                                 </div>
                                 <div className="h-12 mt-3">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <LineChart data={pair.chartData}>
-                                            <Line type="monotone" dataKey="rate" stroke={pair.change24h >= 0 ? '#10b981' : '#ef4444'} strokeWidth={2} dot={false} />
+                                            <Line type="monotone" dataKey="rate" stroke={pair.change24h >= 0 ? '#28ff00' : '#ef4444'} strokeWidth={2} dot={false} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
