@@ -12,9 +12,34 @@ export default function SubscriptionPage() {
     const [waitlistEmail, setWaitlistEmail] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
 
+    const [isLoading, setIsLoading] = useState<string | null>(null);
+
+    const handleCheckout = async (plan: string) => {
+        setIsLoading(plan);
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ plan }),
+            });
+
+            const data = await response.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                throw new Error(data.error || 'Failed to create session');
+            }
+        } catch (error) {
+            console.error('Checkout error:', error);
+            alert('Payment service is temporarily unavailable. Please try again later.');
+            setWaitlistModal({ open: true, plan });
+        } finally {
+            setIsLoading(null);
+        }
+    };
+
     const handleJoinWaitlist = (e: React.FormEvent) => {
         e.preventDefault();
-        // In a real app, you'd call a Convex mutation here
         setIsSuccess(true);
     };
 
@@ -139,10 +164,16 @@ export default function SubscriptionPage() {
                             </li>
                         </ul>
                         <button
-                            onClick={() => setWaitlistModal({ open: true, plan: 'Saver' })}
-                            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 font-bold hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-95"
+                            onClick={() => handleCheckout('Saver')}
+                            disabled={isLoading !== null}
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 font-bold hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
-                            Join Waitlist
+                            {isLoading === 'Saver' ? (
+                                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <Zap className="w-4 h-4" />
+                            )}
+                            Upgrade Now
                         </button>
                     </motion.div>
 
@@ -180,10 +211,15 @@ export default function SubscriptionPage() {
                             </li>
                         </ul>
                         <button
-                            onClick={() => setWaitlistModal({ open: true, plan: 'Business' })}
-                            className="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 transition-all font-bold"
+                            onClick={() => handleCheckout('Business')}
+                            disabled={isLoading !== null}
+                            className="w-full py-4 rounded-xl bg-white/10 hover:bg-white/20 transition-all font-bold disabled:opacity-50 flex items-center justify-center gap-2"
                         >
-                            Get Notified
+                            {isLoading === 'Business' ? (
+                                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                "Get Business"
+                            )}
                         </button>
                     </motion.div>
 
