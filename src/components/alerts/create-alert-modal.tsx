@@ -155,7 +155,7 @@ export default function CreateAlertModal({
                                                     Done
                                                 </button>
                                                 <p className="text-xs text-gray-500 mt-2">
-                                                    Want smarter alerts? <Link href="/subscription" className="text-purple-400 hover:underline">Upgrade to Pro</Link>
+                                                    Want smarter alerts? <Link href="/subscription" className="text-purple-400 hover:underline" onClick={onClose}>Upgrade to Pro</Link>
                                                 </p>
                                             </div>
                                         }
