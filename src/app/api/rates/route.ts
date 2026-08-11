@@ -96,11 +96,11 @@ export async function GET(request: Request) {
         }
     }
 
-    // 2. Failover to Open Exchange Rates API if primary key failed or missing
+    // 2. Failover to Open Exchange Rates API
     if (currentRate === null) {
         try {
             const openRes = await fetch(`${OPEN_API_URL}/${from}`, {
-                signal: AbortSignal.timeout(8000),
+                signal: AbortSignal.timeout(6000),
             });
             const openData = await openRes.json();
             if (openData.result === 'success' && openData.rates && typeof openData.rates[to] === 'number') {
@@ -108,7 +108,23 @@ export async function GET(request: Request) {
                 lastUpdateStr = openData.time_last_update_utc || lastUpdateStr;
             }
         } catch (openErr) {
-            console.error('[RATES_API] Fallback open rate API failed:', openErr);
+            console.warn('[RATES_API] Fallback open er-api failed, trying Frankfurter API...');
+        }
+    }
+
+    // 3. Failover to Frankfurter Open API (no key required, free & unlimited)
+    if (currentRate === null) {
+        try {
+            const frankRes = await fetch(`https://api.frankfurter.dev/v1/latest?base=${from}`, {
+                signal: AbortSignal.timeout(6000),
+            });
+            const frankData = await frankRes.json();
+            if (frankData && frankData.rates && typeof frankData.rates[to] === 'number') {
+                currentRate = frankData.rates[to];
+                lastUpdateStr = frankData.date || lastUpdateStr;
+            }
+        } catch (frankErr) {
+            console.error('[RATES_API] Frankfurter API failed:', frankErr);
         }
     }
 

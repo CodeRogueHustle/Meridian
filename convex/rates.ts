@@ -145,19 +145,38 @@ const syncRatesHandler = async (ctx: any) => {
             }
         }
 
-        // Failover to open endpoint if primary key failed or missing
+        // Failover 1: open.er-api endpoint
         if (!usdRates) {
-            const [usdOpenRes, eurOpenRes] = await Promise.all([
-                fetch('https://open.er-api.com/v6/latest/USD'),
-                fetch('https://open.er-api.com/v6/latest/EUR')
-            ]);
-            const [usdOpenData, eurOpenData] = await Promise.all([usdOpenRes.json(), eurOpenRes.json()]);
-            if (usdOpenData.result === "success") usdRates = usdOpenData.rates;
-            if (eurOpenData.result === "success") eurRates = eurOpenData.rates;
+            try {
+                const [usdOpenRes, eurOpenRes] = await Promise.all([
+                    fetch('https://open.er-api.com/v6/latest/USD'),
+                    fetch('https://open.er-api.com/v6/latest/EUR')
+                ]);
+                const [usdOpenData, eurOpenData] = await Promise.all([usdOpenRes.json(), eurOpenRes.json()]);
+                if (usdOpenData.result === "success") usdRates = usdOpenData.rates;
+                if (eurOpenData.result === "success") eurRates = eurOpenData.rates;
+            } catch (e) {
+                console.warn("open.er-api failover failed, attempting Frankfurter...");
+            }
+        }
+
+        // Failover 2: Frankfurter open API (no key required)
+        if (!usdRates) {
+            try {
+                const [usdFrankRes, eurFrankRes] = await Promise.all([
+                    fetch('https://api.frankfurter.dev/v1/latest?base=USD'),
+                    fetch('https://api.frankfurter.dev/v1/latest?base=EUR')
+                ]);
+                const [usdFrankData, eurFrankData] = await Promise.all([usdFrankRes.json(), eurFrankRes.json()]);
+                if (usdFrankData.rates) usdRates = usdFrankData.rates;
+                if (eurFrankData.rates) eurRates = eurFrankData.rates;
+            } catch (e) {
+                console.error("Frankfurter failover failed:", e);
+            }
         }
 
         if (!usdRates) {
-            throw new Error("Unable to fetch exchange rates from primary or fallback API");
+            throw new Error("Unable to fetch exchange rates from primary or fallback APIs");
         }
 
         const mappedRates = [
