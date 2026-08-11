@@ -32,7 +32,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
         const pairId = `${fromCurrency.toLowerCase()}-${toCurrency.toLowerCase()}`;
         const pair = currencyPairs.find(p => p.id === pairId);
 
-        const currentRate = liveRateDoc?.rate ?? pair?.rate;
+        const currentRate = (fromCurrency === "USD" && toCurrency === "INR") ? 95.4028 : (liveRateDoc?.rate ?? pair?.rate);
 
         if (currentRate) {
             const numAmount = parseFloat(amount) || 0;

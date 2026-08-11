@@ -102,7 +102,7 @@ export const PLATFORM_LOGOS: Record<string, string> = {
 export const platforms: Platform[] = [
     {
         id: 'wise', name: 'Wise', logo: PLATFORM_LOGOS['Wise'], type: 'international',
-        rates: { 'usd-inr': 83.05, 'eur-usd': 1.088, 'gbp-usd': 1.268, 'usd-jpy': 148.0 },
+        rates: { 'usd-inr': 95.35, 'eur-usd': 1.088, 'gbp-usd': 1.268, 'usd-jpy': 148.0 },
         transferFee: 0.6, feeType: 'percentage',
         speed: 'Instant - 1 day', speedHours: 2,
         rating: 4.8, reviews: 145000,
@@ -114,7 +114,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'skydo', name: 'Skydo', logo: PLATFORM_LOGOS['Skydo'], type: 'india',
-        rates: { 'usd-inr': 83.10, 'eur-usd': 1.089, 'gbp-usd': 1.269 },
+        rates: { 'usd-inr': 95.4028, 'eur-usd': 1.089, 'gbp-usd': 1.269 },
         transferFee: 29, feeType: 'fixed',
         speed: '1 day', speedHours: 24,
         rating: 4.6, reviews: 1200,
@@ -126,7 +126,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'remitly', name: 'Remitly', logo: PLATFORM_LOGOS['Remitly'], type: 'international',
-        rates: { 'usd-inr': 82.80, 'eur-usd': 1.085 },
+        rates: { 'usd-inr': 95.10, 'eur-usd': 1.085 },
         transferFee: 1.99, feeType: 'fixed',
         speed: 'Express (Instant)', speedHours: 0.5,
         rating: 4.5, reviews: 45000,
@@ -138,7 +138,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'revolut', name: 'Revolut', logo: PLATFORM_LOGOS['Revolut'], type: 'international',
-        rates: { 'usd-inr': 83.00, 'eur-usd': 1.09, 'gbp-usd': 1.27 },
+        rates: { 'usd-inr': 95.30, 'eur-usd': 1.09, 'gbp-usd': 1.27 },
         transferFee: 0, feeType: 'fixed',
         speed: 'Instant', speedHours: 0.1,
         rating: 4.7, reviews: 98000,
@@ -150,7 +150,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'paypal', name: 'PayPal', logo: PLATFORM_LOGOS['PayPal'], type: 'international',
-        rates: { 'usd-inr': 80.50, 'eur-usd': 1.05, 'gbp-usd': 1.23 },
+        rates: { 'usd-inr': 92.50, 'eur-usd': 1.05, 'gbp-usd': 1.23 },
         transferFee: 4.5, feeType: 'percentage',
         speed: 'Instant', speedHours: 0.1,
         rating: 4.2, reviews: 250000,
@@ -162,7 +162,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'western-union', name: 'Western Union', logo: PLATFORM_LOGOS['Western Union'], type: 'international',
-        rates: { 'usd-inr': 82.90 },
+        rates: { 'usd-inr': 95.20 },
         transferFee: 0, feeType: 'fixed',
         speed: 'Minutes', speedHours: 0.5,
         rating: 4.1, reviews: 85000,
@@ -174,7 +174,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'xoom', name: 'Xoom', logo: PLATFORM_LOGOS['Xoom'], type: 'international',
-        rates: { 'usd-inr': 81.50 },
+        rates: { 'usd-inr': 93.80 },
         transferFee: 4.99, feeType: 'fixed',
         speed: 'Minutes', speedHours: 0.5,
         rating: 4.0, reviews: 22000,
@@ -186,7 +186,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'hdfc', name: 'HDFC Bank', logo: PLATFORM_LOGOS['HDFC Bank'], type: 'bank',
-        rates: { 'usd-inr': 82.10 },
+        rates: { 'usd-inr': 94.50 },
         transferFee: 15, feeType: 'fixed',
         speed: '2-3 days', speedHours: 48,
         rating: 3.8, reviews: 15000,
@@ -198,7 +198,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'sbi', name: 'SBI', logo: PLATFORM_LOGOS['SBI'], type: 'bank',
-        rates: { 'usd-inr': 82.15 },
+        rates: { 'usd-inr': 94.55 },
         transferFee: 10, feeType: 'fixed',
         speed: '3-4 days', speedHours: 72,
         rating: 3.6, reviews: 20000,
@@ -210,7 +210,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'icici', name: 'ICICI Money2India', logo: PLATFORM_LOGOS['ICICI Money2India'], type: 'bank',
-        rates: { 'usd-inr': 82.40 },
+        rates: { 'usd-inr': 94.80 },
         transferFee: 0, feeType: 'fixed',
         speed: '1-2 days', speedHours: 36,
         rating: 3.9, reviews: 10000,
@@ -222,7 +222,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'mulberry', name: 'Mulberry', logo: PLATFORM_LOGOS['Mulberry'], type: 'india',
-        rates: { 'usd-inr': 83.15 },
+        rates: { 'usd-inr': 95.4028 },
         transferFee: 0.5, feeType: 'percentage',
         speed: '1 day', speedHours: 24,
         rating: 4.5, reviews: 500,
@@ -234,7 +234,7 @@ export const platforms: Platform[] = [
     },
     {
         id: 'bookmyforex', name: 'BookMyForex', logo: PLATFORM_LOGOS['BookMyForex'], type: 'india',
-        rates: { 'usd-inr': 83.00 },
+        rates: { 'usd-inr': 95.25 },
         transferFee: 0, feeType: 'fixed',
         speed: '2 days', speedHours: 48,
         rating: 4.3, reviews: 5000,
