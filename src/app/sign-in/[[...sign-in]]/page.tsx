@@ -29,13 +29,13 @@ export default function Page() {
                             headerSubtitle: "text-gray-400",
                             socialButtonsBlockButton: "bg-white/5 border-white/10 text-white hover:bg-white/10",
                             socialButtonsBlockButtonText: "text-white font-medium",
-                            formButtonPrimary: "bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-lg hover:shadow-purple-500/20 transition-all text-sm font-bold",
+                            formButtonPrimary: "bg-gradient-to-r from-cyan- to-teal- hover:shadow-lg hover:shadow-cyan-/20 transition-all text-sm font-bold",
                             formFieldLabel: "text-gray-300",
-                            formFieldInput: "bg-white/5 border-white/10 text-white focus:border-purple-500/50",
+                            formFieldInput: "bg-white/5 border-white/10 text-white focus:border-cyan-/50",
                             footerActionText: "text-gray-400",
-                            footerActionLink: "text-purple-400 hover:text-purple-300",
+                            footerActionLink: "text-cyan- hover:text-cyan-",
                             identityPreviewText: "text-white",
-                            identityPreviewEditButtonIcon: "text-purple-400"
+                            identityPreviewEditButtonIcon: "text-cyan-"
                         }
                     }}
                 />

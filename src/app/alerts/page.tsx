@@ -158,7 +158,7 @@ export default function AlertsPage() {
                         </button>
                         <button
                             onClick={() => setShowCreateModal(true)}
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-sm font-bold hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-95"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 text-sm font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all active:scale-95"
                         >
                             <Plus className="w-4 h-4" />
                             Create Alert
@@ -200,7 +200,7 @@ export default function AlertsPage() {
                     </div>
                     <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                         {/* Placeholder for emails sent */}
-                        <div className="flex items-center gap-2 text-purple-400 mb-2">
+                        <div className="flex items-center gap-2 text-cyan-400 mb-2">
                             <Mail className="w-4 h-4" />
                             <span className="text-xs font-bold uppercase tracking-widest">Emails Sent</span>
                         </div>
@@ -217,7 +217,7 @@ export default function AlertsPage() {
                             key={f}
                             onClick={() => setFilter(f)}
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors whitespace-nowrap ${filter === f
-                                ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
                                 : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'
                                 }`}
                         >
@@ -243,7 +243,7 @@ export default function AlertsPage() {
                         <p className="text-gray-500 mb-6">Create your first alert to get notified when rates hit your target.</p>
                         <button
                             onClick={() => setShowCreateModal(true)}
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 font-bold"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 font-bold"
                         >
                             <Plus className="w-5 h-5" />
                             Create Alert

@@ -17,8 +17,8 @@ export default function ProWaitlistDemo() {
 
     if (!hasJoined) {
         return (
-            <div className="w-full p-8 rounded-3xl bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-500/20 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/25">
+            <div className="w-full p-8 rounded-3xl bg-gradient-to-r from-cyan-900/20 to-teal-900/20 border border-cyan-500/20 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-cyan-500/25">
                     <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-2">Join Meridian Pro</h2>
@@ -46,11 +46,11 @@ export default function ProWaitlistDemo() {
                         description="Thanks for forcing your way into the future of FX. We've received your request and will prioritize your access to Meridian Pro."
                         footerContent={
                             <p className="text-sm text-gray-400">
-                                You are <span className="text-purple-400 font-bold">#4,821</span> in line.
+                                You are <span className="text-cyan-400 font-bold">#4,821</span> in line.
                                 <br />
                                 <a
                                     href="#"
-                                    className="mt-2 inline-block font-medium text-purple-400 underline-offset-4 hover:underline"
+                                    className="mt-2 inline-block font-medium text-cyan-400 underline-offset-4 hover:underline"
                                 >
                                     Refer a friend to skip the line
                                 </a>

@@ -82,7 +82,7 @@ export default function WaitlistModal({ isOpen, onClose, initialPlan = "Saver" }
                             <div className="p-8 border-b border-white/5 flex items-center justify-between">
                                 <div>
                                     <h3 className="text-xl font-bold font-syne text-white flex items-center gap-2">
-                                        <Sparkles className="w-5 h-5 text-purple-400" />
+                                        <Sparkles className="w-5 h-5 text-cyan-400" />
                                         Join Plan Waitlist
                                     </h3>
                                     <p className="text-xs text-gray-500 mt-1 uppercase tracking-widest font-bold">Coming FEB 22</p>
@@ -110,7 +110,7 @@ export default function WaitlistModal({ isOpen, onClose, initialPlan = "Saver" }
                                         placeholder="you@example.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors"
+                                        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-cyan-500/50 transition-colors"
                                     />
                                 </div>
 
@@ -119,7 +119,7 @@ export default function WaitlistModal({ isOpen, onClose, initialPlan = "Saver" }
                                     <select
                                         value={plan}
                                         onChange={(e) => setPlan(e.target.value)}
-                                        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-purple-500/50 transition-colors appearance-none"
+                                        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50 transition-colors appearance-none"
                                     >
                                         <option value="Saver" className="bg-gray-900 uppercase">Saver Plan ($12/mo)</option>
                                         <option value="Business" className="bg-gray-900 uppercase">Business Plan ($49/mo)</option>
@@ -131,7 +131,7 @@ export default function WaitlistModal({ isOpen, onClose, initialPlan = "Saver" }
                                     <select
                                         value={useCase}
                                         onChange={(e) => setUseCase(e.target.value)}
-                                        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-purple-500/50 transition-colors appearance-none"
+                                        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50 transition-colors appearance-none"
                                     >
                                         <option value="Personal" className="bg-gray-900">Personal Transfers</option>
                                         <option value="Freelance" className="bg-gray-900">Freelancing / Remote Work</option>
@@ -144,7 +144,7 @@ export default function WaitlistModal({ isOpen, onClose, initialPlan = "Saver" }
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full mt-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-4 font-bold text-white shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all active:scale-[0.98] disabled:opacity-50"
+                                    className="w-full mt-2 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 py-4 font-bold text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-all active:scale-[0.98] disabled:opacity-50"
                                 >
                                     {isSubmitting ? (
                                         <div className="flex items-center justify-center gap-2">

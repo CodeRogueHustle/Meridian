@@ -68,7 +68,7 @@ export default function AlertCard({ alert, onUpdate }: AlertCardProps) {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`group relative p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-purple-500/30 transition-all ${alert.status === 'paused' ? 'opacity-60' : ''
+            className={`group relative p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-cyan-500/30 transition-all ${alert.status === 'paused' ? 'opacity-60' : ''
                 }`}
         >
             {/* Header */}
@@ -170,7 +170,7 @@ export default function AlertCard({ alert, onUpdate }: AlertCardProps) {
                             initial={{ width: 0 }}
                             animate={{ width: `${progressPercent}%` }}
                             transition={{ duration: 1, ease: 'easeOut' }}
-                            className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full"
+                            className="h-full bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full"
                         />
                     </div>
                     {alert.estimatedTimeToTrigger && (
@@ -205,7 +205,7 @@ export default function AlertCard({ alert, onUpdate }: AlertCardProps) {
                     Created {formatTimeAgo(alert.createdAt)}
                 </span>
                 {alert.status === 'triggered' && (
-                    <button className="text-xs text-purple-400 hover:text-purple-300 transition-colors">
+                    <button className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
                         Transfer Now →
                     </button>
                 )}

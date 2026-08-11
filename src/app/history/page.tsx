@@ -23,7 +23,7 @@ import {
 } from "recharts";
 import { Download, CheckCircle, XCircle, TrendingUp, DollarSign, Target, Award } from "lucide-react";
 
-const COLORS = ['#8b5cf6', '#6366f1', '#3b82f6', '#06b6d4', '#10b981'];
+const COLORS = ['#06b6d4', '#6366f1', '#3b82f6', '#06b6d4', '#10b981'];
 
 export default function HistoryPage() {
     const { isLoaded, userId } = useAuth();
@@ -72,7 +72,7 @@ export default function HistoryPage() {
             {/* Header */}
             <header className="sticky top-0 z-50 border-b border-white/10 bg-black/50 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    <Link href="/" className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-indigo-200">
+                    <Link href="/" className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-teal-200">
                         MERIDIAN
                     </Link>
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
@@ -90,8 +90,8 @@ export default function HistoryPage() {
                 <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))' }}>
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                         <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 rounded-lg bg-purple-500/20">
-                                <Target className="w-5 h-5 text-purple-400" />
+                            <div className="p-2 rounded-lg bg-cyan-500/20">
+                                <Target className="w-5 h-5 text-cyan-400" />
                             </div>
                             <span className="text-gray-400 text-sm">Accuracy</span>
                         </div>
@@ -123,8 +123,8 @@ export default function HistoryPage() {
 
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                         <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 rounded-lg bg-indigo-500/20">
-                                <TrendingUp className="w-5 h-5 text-indigo-400" />
+                            <div className="p-2 rounded-lg bg-teal-500/20">
+                                <TrendingUp className="w-5 h-5 text-teal-400" />
                             </div>
                             <span className="text-gray-400 text-sm">Predictions</span>
                         </div>
@@ -143,8 +143,8 @@ export default function HistoryPage() {
                                 <AreaChart data={accuracyOverTime}>
                                     <defs>
                                         <linearGradient id="colorAccuracy" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <XAxis dataKey="date" stroke="#6b7280" fontSize={12} tickLine={false} axisLine={false} />
@@ -153,7 +153,7 @@ export default function HistoryPage() {
                                         contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px' }}
                                         itemStyle={{ color: '#e5e7eb' }}
                                     />
-                                    <Area type="monotone" dataKey="accuracy" stroke="#8b5cf6" strokeWidth={2} fillOpacity={1} fill="url(#colorAccuracy)" />
+                                    <Area type="monotone" dataKey="accuracy" stroke="#06b6d4" strokeWidth={2} fillOpacity={1} fill="url(#colorAccuracy)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
@@ -219,14 +219,14 @@ export default function HistoryPage() {
                 <div className="flex items-center gap-4 border-b border-white/10 pb-4">
                     <button
                         onClick={() => setActiveTab('predictions')}
-                        className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'predictions' ? 'bg-purple-500/20 text-purple-400' : 'text-gray-400 hover:text-white'
+                        className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'predictions' ? 'bg-cyan-500/20 text-cyan-400' : 'text-gray-400 hover:text-white'
                             }`}
                     >
                         Prediction History
                     </button>
                     <button
                         onClick={() => setActiveTab('transactions')}
-                        className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'transactions' ? 'bg-purple-500/20 text-purple-400' : 'text-gray-400 hover:text-white'
+                        className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'transactions' ? 'bg-cyan-500/20 text-cyan-400' : 'text-gray-400 hover:text-white'
                             }`}
                     >
                         Transaction History
@@ -344,7 +344,7 @@ export default function HistoryPage() {
                                                         <span className="text-[10px] text-gray-400">{t.platform.charAt(0)}</span>
                                                     )}
                                                 </div>
-                                                <span className="text-purple-400 text-sm font-medium">{t.platform}</span>
+                                                <span className="text-cyan-400 text-sm font-medium">{t.platform}</span>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 text-gray-300">{t.ourPrediction}</td>

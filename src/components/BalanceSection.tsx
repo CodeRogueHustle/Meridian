@@ -19,10 +19,10 @@ export default function BalanceSection() {
     return (
         <div className="grid gap-6 mb-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))' }}>
             {/* Total Balance Card */}
-            <div className="lg:col-span-2 relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-purple-900/50 via-gray-900 to-black border border-white/10 backdrop-blur-md group">
+            <div className="lg:col-span-2 relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-cyan-900/40 via-gray-900 to-[#050a0e] border border-white/10 backdrop-blur-md group">
                 {/* Background decorative elements */}
-                <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/30 transition-colors duration-500"></div>
-                <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl group-hover:bg-indigo-500/30 transition-colors duration-500"></div>
+                <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition-colors duration-500"></div>
+                <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64 bg-teal-500/15 rounded-full blur-3xl group-hover:bg-teal-500/25 transition-colors duration-500"></div>
 
                 <div className="relative z-10 flex flex-col h-full justify-between">
                     <div>
@@ -65,7 +65,7 @@ export default function BalanceSection() {
             <div className="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col">
                 <div className="p-6 border-b border-white/10 flex items-center justify-between">
                     <h3 className="font-semibold text-lg">My Accounts</h3>
-                    <button className="text-sm text-purple-400 hover:text-purple-300">View All</button>
+                    <button className="text-sm text-cyan-400 hover:text-cyan-300">View All</button>
                 </div>
 
                 <div className="flex-1 p-4 space-y-2 overflow-y-auto max-h-[240px] lg:max-h-none">
@@ -84,7 +84,7 @@ export default function BalanceSection() {
                                 <p className="font-bold text-white">
                                     {showBalance ? `${acc.symbol}${formatCurrency(acc.amount)}` : '••••'}
                                 </p>
-                                <p className="text-xs text-gray-500 group-hover:text-purple-400 transition-colors">Active</p>
+                                <p className="text-xs text-gray-500 group-hover:text-cyan-400 transition-colors">Active</p>
                             </div>
                         </div>
                     ))}

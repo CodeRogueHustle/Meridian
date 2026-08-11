@@ -129,9 +129,8 @@ export const updateAlertStatus = mutation({
 
         if (!alert) throw new Error("Alert not found");
 
-        // Only allow owner to update, or internal system (if we had a system identity)
-        // For now, if called from the frontend, it must be the owner.
-        if (identity && alert.userId !== identity.subject) {
+        // SECURITY: Require authentication and enforce ownership
+        if (!identity || alert.userId !== identity.subject) {
             throw new Error("Access denied: You do not own this alert");
         }
 

@@ -26,8 +26,7 @@ const isProtectedRoute = createRouteMatcher([
     '/history(.*)',
     '/compare(.*)',
     '/transactions(.*)',
-    '/api/rates(.*)',      // Protect sensitive API routes
-    '/api/send-alert(.*)', // Protect sensitive API routes
+    '/api/send-alert(.*)',
 ]);
 
 // API routes that should have rate limiting applied at the route level

@@ -22,7 +22,7 @@ export default function Error({
             </div>
             <h2 className="text-2xl font-syne font-bold mb-2">Something went wrong</h2>
             <p className="text-gray-400 mb-8 max-w-md text-sm leading-relaxed">
-                {error.message || "We encountered an unexpected error while loading the application. Please try refreshing."}
+                We encountered an unexpected error while loading the application. Please try refreshing the page.
             </p>
             <div className="flex items-center gap-4">
                 <button
@@ -34,7 +34,7 @@ export default function Error({
                 </button>
                 <button
                     onClick={() => reset()}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 font-bold transition-all hover:shadow-lg hover:shadow-purple-500/20 text-sm"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 font-bold transition-all hover:shadow-lg hover:shadow-cyan-500/20 text-sm"
                 >
                     Try Again
                 </button>

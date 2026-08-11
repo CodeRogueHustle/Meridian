@@ -16,9 +16,9 @@ export default function EmailTemplate({ alert, triggeredRate, savings = 2500 }: 
     return (
         <div className="max-w-lg mx-auto bg-gray-900 rounded-2xl overflow-hidden border border-white/10">
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-center">
+            <div className="bg-gradient-to-r from-cyan-600 to-teal-600 p-6 text-center">
                 <h1 className="text-2xl font-syne font-bold text-white tracking-tight">MERIDIAN</h1>
-                <p className="text-purple-200 text-sm mt-1">AI-Powered FX Intelligence</p>
+                <p className="text-cyan-200 text-sm mt-1">AI-Powered FX Intelligence</p>
             </div>
 
             {/* Success Icon */}
@@ -88,7 +88,7 @@ export default function EmailTemplate({ alert, triggeredRate, savings = 2500 }: 
                 <div className="space-y-3">
                     <a
                         href="#"
-                        className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold hover:shadow-lg hover:shadow-purple-500/25 transition-all"
+                        className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 text-white font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
                     >
                         Transfer with Wise
                         <ExternalLink className="w-4 h-4" />

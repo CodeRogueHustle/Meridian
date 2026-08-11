@@ -37,48 +37,48 @@ export interface Platform {
 
 export const currencyPairs: CurrencyPair[] = [
     {
-        id: 'usd-inr', from: 'USD', to: 'INR', fromFlag: '🇺🇸', toFlag: '🇮🇳', fromCountry: 'us', toCountry: 'in', rate: 83.12, change24h: 0.15, prediction24h: 0.3, confidence: 78,
+        id: 'usd-inr', from: 'USD', to: 'INR', fromFlag: '🇺🇸', toFlag: '🇮🇳', fromCountry: 'us', toCountry: 'in', rate: 95.25, change24h: 0.15, prediction24h: 0.3, confidence: 78,
         chartData: [
-            { name: "Mon", rate: 82.90 }, { name: "Tue", rate: 83.00 }, { name: "Wed", rate: 82.95 }, { name: "Thu", rate: 83.10 }, { name: "Fri", rate: 83.15 }, { name: "Sat", rate: 83.20 }, { name: "Sun", rate: 83.12 }
+            { name: "Mon", rate: 94.80 }, { name: "Tue", rate: 94.95 }, { name: "Wed", rate: 95.10 }, { name: "Thu", rate: 95.05 }, { name: "Fri", rate: 95.20 }, { name: "Sat", rate: 95.30 }, { name: "Sun", rate: 95.25 }
         ]
     },
     {
-        id: 'eur-usd', from: 'EUR', to: 'USD', fromFlag: '🇪🇺', toFlag: '🇺🇸', fromCountry: 'eu', toCountry: 'us', rate: 1.09, change24h: -0.05, prediction24h: -0.1, confidence: 65,
+        id: 'eur-usd', from: 'EUR', to: 'USD', fromFlag: '🇪🇺', toFlag: '🇺🇸', fromCountry: 'eu', toCountry: 'us', rate: 1.155, change24h: -0.05, prediction24h: -0.1, confidence: 65,
         chartData: [
-            { name: "Mon", rate: 1.085 }, { name: "Tue", rate: 1.088 }, { name: "Wed", rate: 1.092 }, { name: "Thu", rate: 1.090 }, { name: "Fri", rate: 1.089 }, { name: "Sat", rate: 1.091 }, { name: "Sun", rate: 1.090 }
+            { name: "Mon", rate: 1.150 }, { name: "Tue", rate: 1.152 }, { name: "Wed", rate: 1.158 }, { name: "Thu", rate: 1.156 }, { name: "Fri", rate: 1.154 }, { name: "Sat", rate: 1.156 }, { name: "Sun", rate: 1.155 }
         ]
     },
     {
-        id: 'gbp-usd', from: 'GBP', to: 'USD', fromFlag: '🇬🇧', toFlag: '🇺🇸', fromCountry: 'gb', toCountry: 'us', rate: 1.27, change24h: 0.2, prediction24h: 0.25, confidence: 82,
-        chartData: [{ name: "Mon", rate: 1.26 }, { name: "Tue", rate: 1.265 }, { name: "Wed", rate: 1.268 }, { name: "Thu", rate: 1.272 }, { name: "Fri", rate: 1.270 }, { name: "Sat", rate: 1.271 }, { name: "Sun", rate: 1.270 }]
-    },
-    {
-        id: 'aud-usd', from: 'AUD', to: 'USD', fromFlag: '🇦🇺', toFlag: '🇺🇸', fromCountry: 'au', toCountry: 'us', rate: 0.65, change24h: -0.1, prediction24h: -0.2, confidence: 60,
-        chartData: [{ name: "Mon", rate: 0.66 }, { name: "Tue", rate: 0.658 }, { name: "Wed", rate: 0.655 }, { name: "Thu", rate: 0.652 }, { name: "Fri", rate: 0.650 }, { name: "Sat", rate: 0.651 }, { name: "Sun", rate: 0.650 }]
-    },
-    {
-        id: 'usd-jpy', from: 'USD', to: 'JPY', fromFlag: '🇺🇸', toFlag: '🇯🇵', fromCountry: 'us', toCountry: 'jp', rate: 148.5, change24h: 0.5, prediction24h: 0.4, confidence: 88,
-        chartData: [{ name: "Mon", rate: 147.0 }, { name: "Tue", rate: 147.5 }, { name: "Wed", rate: 148.0 }, { name: "Thu", rate: 148.2 }, { name: "Fri", rate: 148.5 }, { name: "Sat", rate: 148.8 }, { name: "Sun", rate: 148.5 }]
-    },
-    {
-        id: 'usd-cad', from: 'USD', to: 'CAD', fromFlag: '🇺🇸', toFlag: '🇨🇦', fromCountry: 'us', toCountry: 'ca', rate: 1.35, change24h: 0.05, prediction24h: 0.1, confidence: 70,
+        id: 'gbp-usd', from: 'GBP', to: 'USD', fromFlag: '🇬🇧', toFlag: '🇺🇸', fromCountry: 'gb', toCountry: 'us', rate: 1.35, change24h: 0.2, prediction24h: 0.25, confidence: 82,
         chartData: [{ name: "Mon", rate: 1.34 }, { name: "Tue", rate: 1.345 }, { name: "Wed", rate: 1.348 }, { name: "Thu", rate: 1.352 }, { name: "Fri", rate: 1.350 }, { name: "Sat", rate: 1.351 }, { name: "Sun", rate: 1.350 }]
     },
     {
-        id: 'usd-chf', from: 'USD', to: 'CHF', fromFlag: '🇺🇸', toFlag: '🇨🇭', fromCountry: 'us', toCountry: 'ch', rate: 0.88, change24h: -0.15, prediction24h: -0.1, confidence: 68,
-        chartData: [{ name: "Mon", rate: 0.89 }, { name: "Tue", rate: 0.885 }, { name: "Wed", rate: 0.882 }, { name: "Thu", rate: 0.880 }, { name: "Fri", rate: 0.878 }, { name: "Sat", rate: 0.881 }, { name: "Sun", rate: 0.880 }]
+        id: 'aud-usd', from: 'AUD', to: 'USD', fromFlag: '🇦🇺', toFlag: '🇺🇸', fromCountry: 'au', toCountry: 'us', rate: 0.706, change24h: -0.1, prediction24h: -0.2, confidence: 60,
+        chartData: [{ name: "Mon", rate: 0.710 }, { name: "Tue", rate: 0.708 }, { name: "Wed", rate: 0.705 }, { name: "Thu", rate: 0.702 }, { name: "Fri", rate: 0.700 }, { name: "Sat", rate: 0.701 }, { name: "Sun", rate: 0.706 }]
     },
     {
-        id: 'usd-cny', from: 'USD', to: 'CNY', fromFlag: '🇺🇸', toFlag: '🇨🇳', fromCountry: 'us', toCountry: 'cn', rate: 7.19, change24h: 0.0, prediction24h: 0.05, confidence: 55,
-        chartData: [{ name: "Mon", rate: 7.18 }, { name: "Tue", rate: 7.185 }, { name: "Wed", rate: 7.19 }, { name: "Thu", rate: 7.192 }, { name: "Fri", rate: 7.195 }, { name: "Sat", rate: 7.190 }, { name: "Sun", rate: 7.190 }]
+        id: 'usd-jpy', from: 'USD', to: 'JPY', fromFlag: '🇺🇸', toFlag: '🇯🇵', fromCountry: 'us', toCountry: 'jp', rate: 158.9, change24h: 0.5, prediction24h: 0.4, confidence: 88,
+        chartData: [{ name: "Mon", rate: 157.0 }, { name: "Tue", rate: 157.5 }, { name: "Wed", rate: 158.0 }, { name: "Thu", rate: 158.2 }, { name: "Fri", rate: 158.5 }, { name: "Sat", rate: 158.8 }, { name: "Sun", rate: 158.9 }]
     },
     {
-        id: 'nzd-usd', from: 'NZD', to: 'USD', fromFlag: '🇳🇿', toFlag: '🇺🇸', fromCountry: 'nz', toCountry: 'us', rate: 0.61, change24h: 0.1, prediction24h: 0.15, confidence: 62,
-        chartData: [{ name: "Mon", rate: 0.605 }, { name: "Tue", rate: 0.608 }, { name: "Wed", rate: 0.610 }, { name: "Thu", rate: 0.612 }, { name: "Fri", rate: 0.610 }, { name: "Sat", rate: 0.611 }, { name: "Sun", rate: 0.610 }]
+        id: 'usd-cad', from: 'USD', to: 'CAD', fromFlag: '🇺🇸', toFlag: '🇨🇦', fromCountry: 'us', toCountry: 'ca', rate: 1.394, change24h: 0.05, prediction24h: 0.1, confidence: 70,
+        chartData: [{ name: "Mon", rate: 1.385 }, { name: "Tue", rate: 1.388 }, { name: "Wed", rate: 1.390 }, { name: "Thu", rate: 1.392 }, { name: "Fri", rate: 1.391 }, { name: "Sat", rate: 1.393 }, { name: "Sun", rate: 1.394 }]
     },
     {
-        id: 'eur-gbp', from: 'EUR', to: 'GBP', fromFlag: '🇪🇺', toFlag: '🇬🇧', fromCountry: 'eu', toCountry: 'gb', rate: 0.85, change24h: -0.05, prediction24h: -0.05, confidence: 75,
-        chartData: [{ name: "Mon", rate: 0.855 }, { name: "Tue", rate: 0.852 }, { name: "Wed", rate: 0.850 }, { name: "Thu", rate: 0.848 }, { name: "Fri", rate: 0.850 }, { name: "Sat", rate: 0.851 }, { name: "Sun", rate: 0.850 }]
+        id: 'usd-chf', from: 'USD', to: 'CHF', fromFlag: '🇺🇸', toFlag: '🇨🇭', fromCountry: 'us', toCountry: 'ch', rate: 0.810, change24h: -0.15, prediction24h: -0.1, confidence: 68,
+        chartData: [{ name: "Mon", rate: 0.820 }, { name: "Tue", rate: 0.815 }, { name: "Wed", rate: 0.812 }, { name: "Thu", rate: 0.810 }, { name: "Fri", rate: 0.808 }, { name: "Sat", rate: 0.811 }, { name: "Sun", rate: 0.810 }]
+    },
+    {
+        id: 'usd-cny', from: 'USD', to: 'CNY', fromFlag: '🇺🇸', toFlag: '🇨🇳', fromCountry: 'us', toCountry: 'cn', rate: 6.755, change24h: 0.0, prediction24h: 0.05, confidence: 55,
+        chartData: [{ name: "Mon", rate: 6.74 }, { name: "Tue", rate: 6.745 }, { name: "Wed", rate: 6.75 }, { name: "Thu", rate: 6.752 }, { name: "Fri", rate: 6.755 }, { name: "Sat", rate: 6.750 }, { name: "Sun", rate: 6.755 }]
+    },
+    {
+        id: 'nzd-usd', from: 'NZD', to: 'USD', fromFlag: '🇳🇿', toFlag: '🇺🇸', fromCountry: 'nz', toCountry: 'us', rate: 0.588, change24h: 0.1, prediction24h: 0.15, confidence: 62,
+        chartData: [{ name: "Mon", rate: 0.582 }, { name: "Tue", rate: 0.585 }, { name: "Wed", rate: 0.587 }, { name: "Thu", rate: 0.589 }, { name: "Fri", rate: 0.587 }, { name: "Sat", rate: 0.588 }, { name: "Sun", rate: 0.588 }]
+    },
+    {
+        id: 'eur-gbp', from: 'EUR', to: 'GBP', fromFlag: '🇪🇺', toFlag: '🇬🇧', fromCountry: 'eu', toCountry: 'gb', rate: 0.855, change24h: -0.05, prediction24h: -0.05, confidence: 75,
+        chartData: [{ name: "Mon", rate: 0.858 }, { name: "Tue", rate: 0.856 }, { name: "Wed", rate: 0.855 }, { name: "Thu", rate: 0.854 }, { name: "Fri", rate: 0.855 }, { name: "Sat", rate: 0.855 }, { name: "Sun", rate: 0.855 }]
     }
 ];
 

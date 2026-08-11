@@ -1,16 +1,11 @@
 /**
  * Exchange Rates API Route
  * 
- * SECURITY FEATURES:
+ * SECURITY & RELIABILITY FEATURES:
  * - Rate limiting (IP-based)
  * - Input validation & sanitization
- * - Secure API key handling
+ * - Failover API fallback (open.er-api.com when API key is inactive/missing)
  * - Security headers
- * 
- * OWASP Compliance:
- * - A1: Injection prevention via input validation
- * - A2: Broken Authentication - N/A (public endpoint with rate limiting)
- * - A3: Sensitive Data Exposure - API key not exposed to client
  */
 
 import { NextResponse } from 'next/server';
@@ -30,32 +25,19 @@ import {
     sanitizeCurrencyCode,
 } from '@/lib/security';
 
-// ============================================================================
-// Configuration
-// ============================================================================
+const BASE_URL_V6 = 'https://v6.exchangerate-api.com/v6';
+const OPEN_API_URL = 'https://open.er-api.com/v6/latest';
 
-const BASE_URL = 'https://v6.exchangerate-api.com/v6';
-
-// Allowed currency codes (whitelist for additional security)
 const ALLOWED_CURRENCIES = new Set([
     'USD', 'EUR', 'GBP', 'INR', 'JPY', 'AUD', 'CAD', 'CHF', 'CNY', 'NZD',
     'HKD', 'SGD', 'SEK', 'DKK', 'NOK', 'MXN', 'ZAR', 'BRL', 'KRW', 'THB'
 ]);
 
-// ============================================================================
-// API Handler
-// ============================================================================
-
 export async function GET(request: Request) {
     const clientIP = getClientIP(request);
-
-    // ========================================================================
-    // Rate Limiting
-    // ========================================================================
     const { searchParams } = new URL(request.url);
     const isSync = searchParams.get('sync') === 'true';
 
-    // Use stricter limits for sync operations
     const rateLimitConfig = isSync
         ? RATE_LIMIT_CONFIGS.SYNC_OPERATION
         : RATE_LIMIT_CONFIGS.PUBLIC_API;
@@ -71,9 +53,6 @@ export async function GET(request: Request) {
         return createRateLimitResponse(rateLimitResult.retryAfter!);
     }
 
-    // ========================================================================
-    // Input Validation
-    // ========================================================================
     const inputParams: Record<string, unknown> = {};
     searchParams.forEach((value, key) => {
         inputParams[key] = value;
@@ -90,133 +69,102 @@ export async function GET(request: Request) {
         return createValidationErrorResponse(validationResult.errors);
     }
 
-    // ========================================================================
-    // Sanitize and Extract Parameters
-    // ========================================================================
     let from = sanitizeCurrencyCode(searchParams.get('from') || 'USD');
     let to = sanitizeCurrencyCode(searchParams.get('to') || 'INR');
 
-    // Additional whitelist validation
-    if (!ALLOWED_CURRENCIES.has(from)) {
-        from = 'USD';
-    }
-    if (!ALLOWED_CURRENCIES.has(to)) {
-        to = 'INR';
-    }
+    if (!ALLOWED_CURRENCIES.has(from)) from = 'USD';
+    if (!ALLOWED_CURRENCIES.has(to)) to = 'INR';
 
-    // ========================================================================
-    // Secure API Key Retrieval
-    // ========================================================================
+    let currentRate: number | null = null;
+    let lastUpdateStr: string = new Date().toISOString();
+
     const API_KEY = getSecureApiKey('EXCHANGE_RATE_API_KEY');
 
-    if (!API_KEY) {
-        console.error('[SECURITY] EXCHANGE_RATE_API_KEY not configured');
+    // 1. Try Primary API Key endpoint
+    if (API_KEY) {
+        try {
+            const response = await fetch(`${BASE_URL_V6}/${API_KEY}/pair/${from}/${to}`, {
+                signal: AbortSignal.timeout(6000),
+            });
+            const data = await response.json();
+            if (data.result === 'success' && typeof data.conversion_rate === 'number') {
+                currentRate = data.conversion_rate;
+                lastUpdateStr = data.time_last_update_utc || lastUpdateStr;
+            }
+        } catch (e) {
+            console.warn('[RATES_API] Primary API key lookup failed or inactive, attempting open endpoint fallback...');
+        }
+    }
+
+    // 2. Failover to Open Exchange Rates API if primary key failed or missing
+    if (currentRate === null) {
+        try {
+            const openRes = await fetch(`${OPEN_API_URL}/${from}`, {
+                signal: AbortSignal.timeout(8000),
+            });
+            const openData = await openRes.json();
+            if (openData.result === 'success' && openData.rates && typeof openData.rates[to] === 'number') {
+                currentRate = openData.rates[to];
+                lastUpdateStr = openData.time_last_update_utc || lastUpdateStr;
+            }
+        } catch (openErr) {
+            console.error('[RATES_API] Fallback open rate API failed:', openErr);
+        }
+    }
+
+    if (currentRate === null) {
         return NextResponse.json(
-            {
-                error: 'Service temporarily unavailable',
-                message: 'Exchange rate service is not configured'
-            },
-            { status: 503 }
+            { error: 'Failed to fetch exchange rates', message: 'Rate service temporarily unavailable' },
+            { status: 502 }
         );
     }
 
-    // ========================================================================
-    // External API Call
-    // ========================================================================
-    try {
-        const response = await fetch(
-            `${BASE_URL}/${API_KEY}/pair/${from}/${to}`,
-            {
-                // Set timeout for external requests
-                signal: AbortSignal.timeout(10000),
+    // 3. Sync to Convex DB
+    const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL;
+    if (isSync && CONVEX_URL) {
+        try {
+            const client = new ConvexHttpClient(CONVEX_URL);
+            const openRes = await fetch(`${OPEN_API_URL}/USD`, { signal: AbortSignal.timeout(8000) });
+            const openData = await openRes.json();
+
+            if (openData.result === 'success' && openData.rates) {
+                const r = openData.rates;
+                const mappedRates = [
+                    { pair: "USD/INR", rate: r.INR || 83.5 },
+                    { pair: "EUR/USD", rate: r.EUR ? (1 / r.EUR) : 1.08 },
+                    { pair: "GBP/USD", rate: r.GBP ? (1 / r.GBP) : 1.27 },
+                    { pair: "USD/JPY", rate: r.JPY || 155.0 },
+                    { pair: "EUR/INR", rate: r.EUR ? (r.INR / r.EUR) : 90.5 },
+                    { pair: "GBP/INR", rate: r.GBP ? (r.INR / r.GBP) : 106.0 },
+                    { pair: "AUD/USD", rate: r.AUD ? (1 / r.AUD) : 0.66 },
+                    { pair: "CAD/USD", rate: r.CAD ? (1 / r.CAD) : 0.73 },
+                    { pair: "CHF/USD", rate: r.CHF ? (1 / r.CHF) : 1.11 },
+                    { pair: "USD/CNY", rate: r.CNY || 7.24 },
+                ];
+
+                // @ts-ignore
+                await client.mutation(api.rates.updateRates, { rates: mappedRates });
+                console.log("[RATES_API] Convex DB sync completed successfully.");
             }
-        );
-
-        const data = await response.json();
-
-        if (data.result !== 'success') {
-            throw new Error(data['error-type'] || 'Failed to fetch rates');
+        } catch (syncError) {
+            console.error("[RATES_API] Convex sync error:", syncError);
         }
-
-        const currentRate = data.conversion_rate;
-
-        // ====================================================================
-        // Sync to Convex (if requested)
-        // ====================================================================
-        const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL;
-
-        if (isSync && CONVEX_URL) {
-            console.log("[SECURITY] Triggering Convex sync from API route...");
-
-            try {
-                const client = new ConvexHttpClient(CONVEX_URL);
-                // PERFORMANCE: Fetch multiple base rates in parallel for a more complete sync
-                console.log("[SECURITY] Fetching base rates in parallel...");
-                const [usdRes, eurRes, gbpRes] = await Promise.all([
-                    fetch(`${BASE_URL}/${API_KEY}/latest/USD`, { signal: AbortSignal.timeout(10000) }),
-                    fetch(`${BASE_URL}/${API_KEY}/latest/EUR`, { signal: AbortSignal.timeout(10000) }),
-                    fetch(`${BASE_URL}/${API_KEY}/latest/GBP`, { signal: AbortSignal.timeout(10000) })
-                ]);
-
-                const [usdData, eurData, gbpData] = await Promise.all([
-                    usdRes.json(),
-                    eurRes.json(),
-                    gbpRes.json()
-                ]);
-
-                if (usdData.result === "success") {
-                    const mappedRates = [
-                        { pair: "USD/INR", rate: usdData.conversion_rates.INR },
-                        { pair: "EUR/USD", rate: eurData.result === 'success' ? eurData.conversion_rates.USD : (1 / usdData.conversion_rates.EUR) },
-                        { pair: "GBP/USD", rate: gbpData.result === 'success' ? gbpData.conversion_rates.USD : (1 / usdData.conversion_rates.GBP) },
-                        { pair: "USD/JPY", rate: usdData.conversion_rates.JPY },
-                        { pair: "EUR/INR", rate: eurData.result === 'success' ? eurData.conversion_rates.INR : (usdData.conversion_rates.INR / usdData.conversion_rates.EUR) },
-                        { pair: "GBP/INR", rate: gbpData.result === 'success' ? gbpData.conversion_rates.INR : (usdData.conversion_rates.INR / usdData.conversion_rates.GBP) },
-                        { pair: "AUD/USD", rate: 1 / usdData.conversion_rates.AUD },
-                        { pair: "CAD/USD", rate: 1 / usdData.conversion_rates.CAD },
-                        { pair: "CHF/USD", rate: 1 / usdData.conversion_rates.CHF },
-                        { pair: "USD/CNY", rate: usdData.conversion_rates.CNY },
-                    ];
-
-                    // @ts-ignore
-                    await client.mutation(api.rates.updateRates, { rates: mappedRates });
-                    console.log("[SECURITY] Convex sync completed successfully.");
-                }
-            } catch (syncError) {
-                console.error("[SECURITY] Convex sync failed:", syncError);
-                // Don't fail the whole request if sync fails
-            }
-        }
-
-        // ====================================================================
-        // Response with Rate Limit Headers
-        // ====================================================================
-        return NextResponse.json(
-            {
-                rate: currentRate,
-                lastUpdate: data.time_last_update_utc,
-                from,
-                to,
-                synced: isSync
-            },
-            {
-                headers: {
-                    'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
-                    'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
-                    'Cache-Control': 'public, max-age=60', // Cache for 1 minute
-                },
-            }
-        );
-    } catch (error: any) {
-        console.error('[SECURITY] ExchangeRate API Error:', error);
-
-        // Don't expose internal error details to client
-        return NextResponse.json(
-            {
-                error: 'Failed to fetch exchange rates',
-                message: 'Please try again later'
-            },
-            { status: 500 }
-        );
     }
+
+    return NextResponse.json(
+        {
+            rate: currentRate,
+            lastUpdate: lastUpdateStr,
+            from,
+            to,
+            synced: isSync
+        },
+        {
+            headers: {
+                'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+                'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
+                'Cache-Control': 'public, max-age=60',
+            },
+        }
+    );
 }

@@ -54,7 +54,7 @@ export default function CurrencySelector({ selectedPair, onSelect }: CurrencySel
                                     onSelect(pair);
                                     setIsOpen(false);
                                 }}
-                                className={`w-full px-4 py-3 flex items-center justify-between hover:bg-white/5 transition-colors ${selectedPair.id === pair.id ? 'bg-purple-500/10' : ''
+                                className={`w-full px-4 py-3 flex items-center justify-between hover:bg-white/5 transition-colors ${selectedPair.id === pair.id ? 'bg-cyan-500/10' : ''
                                     }`}
                             >
                                 <div className="flex items-center gap-3">

@@ -71,7 +71,7 @@ export default function SavingsCalculator({ amount, setAmount, selectedPairId, s
                                     type="number"
                                     value={amount}
                                     onChange={(e) => setAmount(Number(e.target.value))}
-                                    className="w-full bg-black/40 border border-white/10 rounded-xl pl-8 pr-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+                                    className="w-full bg-black/40 border border-white/10 rounded-xl pl-8 pr-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors"
                                 />
                             </div>
                             <input
@@ -81,7 +81,7 @@ export default function SavingsCalculator({ amount, setAmount, selectedPairId, s
                                 step="100"
                                 value={amount}
                                 onChange={(e) => setAmount(Number(e.target.value))}
-                                className="w-full mt-4 accent-purple-500 h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                                className="w-full mt-4 accent-cyan-500 h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
                             />
                             <div className="flex justify-between text-xs text-gray-500 mt-1">
                                 <span>$100</span>
@@ -91,20 +91,20 @@ export default function SavingsCalculator({ amount, setAmount, selectedPairId, s
                     </div>
 
                     {/* Annual Savings Card */}
-                    <div className="bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-2xl p-5 relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/30 rounded-2xl p-5 relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-10">
-                            <TrendingUp className="w-24 h-24 text-purple-400" />
+                            <TrendingUp className="w-24 h-24 text-cyan-400" />
                         </div>
                         <div className="flex items-start gap-3 relative z-10">
-                            <div className="p-2 bg-purple-500/20 rounded-lg">
-                                <TrendingUp className="w-5 h-5 text-purple-400" />
+                            <div className="p-2 bg-cyan-500/20 rounded-lg">
+                                <TrendingUp className="w-5 h-5 text-cyan-400" />
                             </div>
                             <div>
-                                <p className="text-sm text-purple-200">Potential Annual Savings</p>
+                                <p className="text-sm text-cyan-200">Potential Annual Savings</p>
                                 <p className="text-2xl font-bold text-white mt-1">
-                                    {formatCurrency(yearlySavings)} <span className="text-sm font-normal text-purple-200">{selectedPair.to}</span>
+                                    {formatCurrency(yearlySavings)} <span className="text-sm font-normal text-cyan-200">{selectedPair.to}</span>
                                 </p>
-                                <p className="text-xs text-purple-300/70 mt-1">
+                                <p className="text-xs text-cyan-300/70 mt-1">
                                     Based on 12 transfers of ${amount}
                                 </p>
                             </div>

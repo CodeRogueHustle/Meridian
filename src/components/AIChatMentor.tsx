@@ -27,10 +27,10 @@ const ColorOrb: React.FC<OrbProps> = ({
     spinDuration = 20,
 }) => {
     const fallbackTones = {
-        base: "oklch(95% 0.02 264.695)",
-        accent1: "oklch(75% 0.15 350)",
-        accent2: "oklch(80% 0.12 200)",
-        accent3: "oklch(78% 0.14 280)",
+        base: "oklch(20% 0.05 195)",
+        accent1: "oklch(75% 0.18 190)", // Cyan
+        accent2: "oklch(80% 0.18 160)", // Emerald
+        accent3: "oklch(70% 0.15 210)", // Teal
     };
 
     const palette = { ...fallbackTones, ...tones };

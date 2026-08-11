@@ -29,10 +29,10 @@ export default function StatsBar() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="flex items-center justify-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 hover:border-purple-500/30 transition-colors"
+                        className="flex items-center justify-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 hover:border-cyan-500/30 transition-colors"
                     >
-                        <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                            <Users className="w-6 h-6 text-purple-400" />
+                        <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                            <Users className="w-6 h-6 text-cyan-400" />
                         </div>
                         <div>
                             <h3 className="text-3xl font-bold font-syne tabular-nums text-white">

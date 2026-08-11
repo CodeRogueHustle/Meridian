@@ -182,11 +182,11 @@ export default function AetherBackground() {
       {/* Base dark gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black" />
 
-      {/* Animated purple glow */}
+      {/* Animated cyan glow */}
       <div
         className="absolute inset-0 animate-aether-pulse"
         style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% 50%, rgba(147, 51, 234, 0.3) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 80% 50% at 50% 50%, rgba(6, 182, 212, 0.2) 0%, transparent 70%)',
         }}
       />
 
@@ -194,7 +194,7 @@ export default function AetherBackground() {
       <div
         className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-3xl animate-aether-float"
         style={{
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.5) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(13, 148, 136, 0.4) 0%, transparent 70%)',
           top: '20%',
           left: '10%',
         }}
@@ -202,7 +202,7 @@ export default function AetherBackground() {
       <div
         className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-3xl animate-aether-float-reverse"
         style={{
-          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%)',
           bottom: '10%',
           right: '10%',
         }}

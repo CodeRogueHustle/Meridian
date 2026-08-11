@@ -113,7 +113,7 @@ export default function CreateAlertModal({
                             {!isSuccess && (
                                 <div className="p-6 border-b border-white/5 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center">
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
                                             <Bell className="w-5 h-5 text-white" />
                                         </div>
                                         <div>
@@ -155,7 +155,7 @@ export default function CreateAlertModal({
                                                     Done
                                                 </button>
                                                 <p className="text-xs text-gray-500 mt-2">
-                                                    Want smarter alerts? <Link href="/subscription" className="text-purple-400 hover:underline">Upgrade to Pro</Link>
+                                                    Want smarter alerts? <Link href="/subscription" className="text-cyan-400 hover:underline">Upgrade to Pro</Link>
                                                 </p>
                                             </div>
                                         }
@@ -171,7 +171,7 @@ export default function CreateAlertModal({
                                             <select
                                                 value={formData.fromCurrency}
                                                 onChange={(e) => setFormData({ ...formData, fromCurrency: e.target.value })}
-                                                className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50"
+                                                className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-500/50"
                                             >
                                                 {currencies.map(c => (
                                                     <option key={c} value={c} className="bg-gray-900">{c}</option>
@@ -181,7 +181,7 @@ export default function CreateAlertModal({
                                             <select
                                                 value={formData.toCurrency}
                                                 onChange={(e) => setFormData({ ...formData, toCurrency: e.target.value })}
-                                                className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50"
+                                                className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-500/50"
                                             >
                                                 {currencies.map(c => (
                                                     <option key={c} value={c} className="bg-gray-900">{c}</option>
@@ -236,7 +236,7 @@ export default function CreateAlertModal({
                                             step="0.0001"
                                             value={formData.targetRate}
                                             onChange={(e) => setFormData({ ...formData, targetRate: parseFloat(e.target.value) })}
-                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-lg font-bold focus:outline-none focus:border-purple-500/50"
+                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-lg font-bold focus:outline-none focus:border-cyan-500/50"
                                             required
                                         />
                                     </div>
@@ -255,7 +255,7 @@ export default function CreateAlertModal({
                                                     setFormData({ ...formData, notificationMethods: methods as any });
                                                 }}
                                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all ${formData.notificationMethods.includes('email')
-                                                    ? 'bg-purple-500/20 border-purple-500/50 text-purple-400'
+                                                    ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
                                                     : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
                                                     }`}
                                             >
@@ -274,7 +274,7 @@ export default function CreateAlertModal({
                                             >
                                                 <Lock className="w-4 h-4" />
                                                 <span className="flex-1 text-left">SMS</span>
-                                                <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 text-[10px] font-bold">PRO</span>
+                                                <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] font-bold">PRO</span>
                                             </button>
                                         </div>
                                     </div>
@@ -288,7 +288,7 @@ export default function CreateAlertModal({
                                                 value={formData.email}
                                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 placeholder="your@email.com"
-                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50 placeholder:text-gray-600"
+                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-500/50 placeholder:text-gray-600"
                                                 required // Make required to prevent submission failure
                                             />
                                         </div>
@@ -302,14 +302,14 @@ export default function CreateAlertModal({
                                             value={formData.note}
                                             onChange={(e) => setFormData({ ...formData, note: e.target.value })}
                                             placeholder="e.g., Transfer to family"
-                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50 placeholder:text-gray-600"
+                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-500/50 placeholder:text-gray-600"
                                         />
                                     </div>
 
                                     {/* Pro Features Preview */}
-                                    <div className="p-4 rounded-xl bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+                                    <div className="p-4 rounded-xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/20">
                                         <div className="flex items-start gap-3">
-                                            <Sparkles className="w-5 h-5 text-purple-400 mt-0.5" />
+                                            <Sparkles className="w-5 h-5 text-cyan-400 mt-0.5" />
                                             <div>
                                                 <p className="text-sm text-white font-medium">Pro Features</p>
                                                 <p className="text-xs text-gray-400 mt-1">
@@ -322,7 +322,7 @@ export default function CreateAlertModal({
                                     {/* Submit */}
                                     <button
                                         type="submit"
-                                        className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold hover:shadow-lg hover:shadow-purple-500/25 transition-all flex items-center justify-center gap-2"
+                                        className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-600 to-teal-600 text-white font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2"
                                     >
                                         <Bell className="w-5 h-5" />
                                         Create Alert
@@ -343,7 +343,7 @@ export default function CreateAlertModal({
                             >
                                 <div className="absolute inset-0 bg-black/50" onClick={() => setShowProModal(false)} />
                                 <div className="relative bg-gray-900 border border-white/10 rounded-2xl p-6 max-w-sm w-full text-center">
-                                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center mx-auto mb-4">
+                                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center mx-auto mb-4">
                                         <Lock className="w-8 h-8 text-white" />
                                     </div>
                                     <h3 className="text-xl font-bold text-white mb-2">Upgrade to Pro</h3>
@@ -355,7 +355,7 @@ export default function CreateAlertModal({
                                     </p>
                                     <Link
                                         href="/subscription"
-                                        className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold mb-3 block text-center"
+                                        className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 text-white font-bold mb-3 block text-center"
                                         onClick={() => setShowProModal(false)}
                                     >
                                         Upgrade Now

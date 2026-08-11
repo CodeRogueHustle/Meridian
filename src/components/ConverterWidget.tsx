@@ -70,7 +70,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 z-40 p-4 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all hover:scale-105"
+                className="fixed bottom-6 right-6 z-40 p-4 rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all hover:scale-105"
             >
                 <ArrowLeftRight className="w-6 h-6" />
             </button>
@@ -82,7 +82,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
             {/* Header */}
             <div className="p-4 border-b border-white/10 flex items-center justify-between">
                 <h3 className="text-white font-semibold flex items-center gap-2">
-                    <ArrowLeftRight className="w-5 h-5 text-purple-400" />
+                    <ArrowLeftRight className="w-5 h-5 text-cyan-400" />
                     Quick Convert
                 </h3>
                 <button
@@ -102,7 +102,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
                         <select
                             value={fromCurrency}
                             onChange={(e) => setFromCurrency(e.target.value)}
-                            className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50"
+                            className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-500/50"
                         >
                             {currencies.map(c => (
                                 <option key={c} value={c} className="bg-gray-900">{c}</option>
@@ -112,7 +112,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
                             type="number"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
-                            className="w-24 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-right focus:outline-none focus:border-purple-500/50"
+                            className="w-24 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-right focus:outline-none focus:border-cyan-500/50"
                             placeholder="Amount"
                         />
                     </div>
@@ -135,7 +135,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
                         <select
                             value={toCurrency}
                             onChange={(e) => setToCurrency(e.target.value)}
-                            className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-purple-500/50"
+                            className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-500/50"
                         >
                             {currencies.map(c => (
                                 <option key={c} value={c} className="bg-gray-900">{c}</option>
@@ -145,7 +145,7 @@ export default function ConverterWidget({ defaultFromCurrency = "USD", defaultTo
                 </div>
 
                 {/* Result */}
-                <div className="p-4 rounded-xl bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+                <div className="p-4 rounded-xl bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/20">
                     <p className="text-xs text-gray-400 mb-1">You&apos;ll receive approximately</p>
                     <p className="text-3xl font-bold text-white">
                         {formatCurrency(result, result < 100 ? 4 : 2)} <span className="text-xl text-gray-400">{toCurrency}</span>

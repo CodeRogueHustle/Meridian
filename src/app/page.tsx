@@ -33,7 +33,7 @@ export default function Home() {
             <header className="sticky top-0 z-[60] border-b border-white/5 bg-black/40 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     <Link href="/" className="group flex items-center gap-2">
-                        <span className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-indigo-200">
+                        <span className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-teal-200">
                             MERIDIAN
                         </span>
                     </Link>
@@ -68,7 +68,7 @@ export default function Home() {
                         >
                             <Link onClick={() => setIsMenuOpen(false)} href="#features" className="text-xl font-syne font-bold text-white">Features</Link>
                             <Link onClick={() => setIsMenuOpen(false)} href="#pricing" className="text-xl font-syne font-bold text-white">Pricing</Link>
-                            <Link onClick={() => setIsMenuOpen(false)} href="/dashboard" className="text-xl font-syne font-bold text-white text-purple-400">View Demo</Link>
+                            <Link onClick={() => setIsMenuOpen(false)} href="/dashboard" className="text-xl font-syne font-bold text-white text-cyan-400">View Demo</Link>
                             <UserMenu />
                         </motion.div>
                     )}
@@ -94,9 +94,9 @@ export default function Home() {
             <section id="features" className="py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
                 <div className="grid gap-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))' }}>
                     {/* Card 1 */}
-                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-purple-500/30 transition-colors group">
-                        <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-                            <Brain className="w-6 h-6 text-purple-400" />
+                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-cyan-500/30 transition-colors group">
+                        <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 transition-colors">
+                            <Brain className="w-6 h-6 text-cyan-400" />
                         </div>
                         <h3 className="text-2xl font-semibold mb-3">Smart Predictions</h3>
                         <p className="text-gray-400 leading-relaxed">
@@ -116,9 +116,9 @@ export default function Home() {
                     </div>
 
                     {/* Card 3 */}
-                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-indigo-500/30 transition-colors group">
-                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-colors">
-                            <ArrowRightLeft className="w-6 h-6 text-indigo-400" />
+                    <div className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-teal-500/30 transition-colors group">
+                        <div className="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
+                            <ArrowRightLeft className="w-6 h-6 text-teal-400" />
                         </div>
                         <h3 className="text-2xl font-semibold mb-3">Multi-Platform</h3>
                         <p className="text-gray-400 leading-relaxed">
@@ -176,12 +176,12 @@ export default function Home() {
                     </div>
 
                     {/* Saver */}
-                    <div className="p-8 rounded-3xl bg-white/5 border-2 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.1)] backdrop-blur-sm relative transform md:-translate-y-4 overflow-hidden">
-                        <div className="absolute top-4 right-4 bg-purple-500/20 text-purple-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider border border-purple-500/30">
+                    <div className="p-8 rounded-3xl bg-white/5 border-2 border-cyan-500/50 shadow-[0_0_30px_rgba(6, 182, 212,0.1)] backdrop-blur-sm relative transform md:-translate-y-4 overflow-hidden">
+                        <div className="absolute top-4 right-4 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider border border-cyan-500/30">
                             Early Bird
                         </div>
-                        <h3 className="text-xl font-medium text-purple-400 mb-2 font-syne uppercase tracking-tight">Saver</h3>
-                        <p className="text-xs text-purple-500/70 mb-6 uppercase font-bold tracking-widest">Coming FEB 22</p>
+                        <h3 className="text-xl font-medium text-cyan-400 mb-2 font-syne uppercase tracking-tight">Saver</h3>
+                        <p className="text-xs text-cyan-500/70 mb-6 uppercase font-bold tracking-widest">Coming FEB 22</p>
                         <div className="flex items-baseline gap-1 mb-2">
                             <span className="text-4xl font-bold">$12</span>
                             <span className="text-gray-400">/mo</span>
@@ -191,24 +191,24 @@ export default function Home() {
                         </p>
                         <ul className="space-y-4 mb-8 text-gray-300 text-sm">
                             <li className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-purple-400" /> All Free features
+                                <Check className="w-4 h-4 text-cyan-400" /> All Free features
                             </li>
                             <li className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-purple-400" /> Priority support
+                                <Check className="w-4 h-4 text-cyan-400" /> Priority support
                             </li>
                             <li className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-purple-400" /> SMS/Push notifications
+                                <Check className="w-4 h-4 text-cyan-400" /> SMS/Push notifications
                             </li>
                             <li className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-purple-400" /> Multi-device sync
+                                <Check className="w-4 h-4 text-cyan-400" /> Multi-device sync
                             </li>
                             <li className="flex items-center gap-3">
-                                <Check className="w-4 h-4 text-purple-400" /> Data export (CSV)
+                                <Check className="w-4 h-4 text-cyan-400" /> Data export (CSV)
                             </li>
                         </ul>
                         <button
                             onClick={() => setWaitlistModal({ open: true, plan: 'Saver' })}
-                            className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 font-bold hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-95"
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 font-bold hover:shadow-lg hover:shadow-cyan-500/25 transition-all active:scale-95"
                         >
                             Join Waitlist
                         </button>

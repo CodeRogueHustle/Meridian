@@ -60,7 +60,7 @@ export default function ComparePage() {
         return (
             <div className="min-h-screen text-white relative isolate flex items-center justify-center">
                 <Background />
-                <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+                <Loader2 className="w-8 h-8 animate-spin text-cyan-500" />
             </div>
         );
     }
@@ -119,7 +119,7 @@ export default function ComparePage() {
             {/* Header */}
             <header className="sticky top-0 z-50 border-b border-white/10 bg-black/50 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    <Link href="/" className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-indigo-200">
+                    <Link href="/" className="text-2xl font-extrabold font-syne tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 to-teal-200">
                         MERIDIAN
                     </Link>
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
@@ -163,7 +163,7 @@ export default function ComparePage() {
                                     placeholder="Search..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm focus:outline-none focus:border-purple-500 transition-colors w-32 md:w-auto"
+                                    className="pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm focus:outline-none focus:border-cyan-500 transition-colors w-32 md:w-auto"
                                 />
                             </div>
 
@@ -171,7 +171,7 @@ export default function ComparePage() {
                             <select
                                 value={speedFilter}
                                 onChange={(e) => setSpeedFilter(e.target.value as any)}
-                                className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 focus:outline-none focus:border-purple-500 cursor-pointer"
+                                className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
                             >
                                 <option value="all" className="bg-gray-900">Any Speed</option>
                                 <option value="instant" className="bg-gray-900">Instant</option>
@@ -182,7 +182,7 @@ export default function ComparePage() {
                             <select
                                 value={typeFilter}
                                 onChange={(e) => setTypeFilter(e.target.value as any)}
-                                className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 focus:outline-none focus:border-purple-500 cursor-pointer"
+                                className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
                             >
                                 <option value="all" className="bg-gray-900">All Types</option>
                                 <option value="international" className="bg-gray-900">Platform</option>
@@ -192,10 +192,10 @@ export default function ComparePage() {
 
                             {/* Sort */}
                             <div className="border-l border-white/10 pl-3 flex gap-1">
-                                <button onClick={() => setSortBy('rate')} className={`p-2 rounded-lg transition-colors ${sortBy === 'rate' ? 'bg-purple-500/20 text-purple-400' : 'hover:bg-white/5 text-gray-400'}`} title="Best Rate">
+                                <button onClick={() => setSortBy('rate')} className={`p-2 rounded-lg transition-colors ${sortBy === 'rate' ? 'bg-cyan-500/20 text-cyan-400' : 'hover:bg-white/5 text-gray-400'}`} title="Best Rate">
                                     <ArrowUpDown className="w-4 h-4" />
                                 </button>
-                                <button onClick={() => setSortBy('rating')} className={`p-2 rounded-lg transition-colors ${sortBy === 'rating' ? 'bg-purple-500/20 text-purple-400' : 'hover:bg-white/5 text-gray-400'}`} title="Best Rating">
+                                <button onClick={() => setSortBy('rating')} className={`p-2 rounded-lg transition-colors ${sortBy === 'rating' ? 'bg-cyan-500/20 text-cyan-400' : 'hover:bg-white/5 text-gray-400'}`} title="Best Rating">
                                     <Filter className="w-4 h-4" />
                                 </button>
                             </div>
@@ -219,7 +219,7 @@ export default function ComparePage() {
                             <p className="text-gray-400">No platforms found matching your filters.</p>
                             <button
                                 onClick={() => { setSpeedFilter('all'); setTypeFilter('all'); setSearchQuery(''); }}
-                                className="mt-4 text-purple-400 hover:text-purple-300 underline"
+                                className="mt-4 text-cyan-400 hover:text-cyan-300 underline"
                             >
                                 Clear Filters
                             </button>

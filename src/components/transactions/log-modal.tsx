@@ -127,7 +127,7 @@ export default function LogTransferModal({ isOpen, onClose, onSave }: LogTransfe
                                         type="date"
                                         value={formData.date}
                                         onChange={e => setFormData({ ...formData, date: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-purple-500/50 outline-none"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-500/50 outline-none"
                                     />
                                 </div>
 
@@ -138,7 +138,7 @@ export default function LogTransferModal({ isOpen, onClose, onSave }: LogTransfe
                                         type="number"
                                         value={formData.amount}
                                         onChange={e => setFormData({ ...formData, amount: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-purple-500/50 outline-none text-lg font-bold"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-500/50 outline-none text-lg font-bold"
                                         placeholder="1000"
                                     />
                                 </div>
@@ -178,7 +178,7 @@ export default function LogTransferModal({ isOpen, onClose, onSave }: LogTransfe
                                         step="0.0001"
                                         value={formData.rate}
                                         onChange={e => setFormData({ ...formData, rate: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-purple-500/50 outline-none text-lg font-bold"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-500/50 outline-none text-lg font-bold"
                                         placeholder="83.5000"
                                     />
                                 </div>

@@ -17,7 +17,7 @@ interface CanvasRevealEffectProps {
 export const CanvasRevealEffect = ({
     animationSpeed = 3,
     opacities = [0.5, 0.5, 0.5, 0.7, 0.7, 0.7, 0.9, 0.9, 0.9, 1], // Higher base opacities
-    colors = [[168, 85, 247]], // Brighter Purple
+    colors = [[6, 182, 212]], // Cyan
     containerClassName,
     dotSize = 6,
     showGradient = true,

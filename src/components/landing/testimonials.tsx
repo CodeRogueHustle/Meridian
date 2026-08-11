@@ -12,7 +12,7 @@ const testimonials = [
         location: "Bangalore",
         initials: "RS",
         rating: 5,
-        color: "bg-purple-500"
+        color: "bg-cyan-500"
     },
     {
         quote: "I was losing ₹5K every month using my bank. Meridian showed me better options. Now I use Wise and save consistently.",
@@ -30,7 +30,7 @@ const testimonials = [
         location: "Pune",
         initials: "AK",
         rating: 4.5,
-        color: "bg-indigo-500"
+        color: "bg-teal-500"
     },
     {
         quote: "Converting EUR to USD was a headache. Meridian's alerts helped me time my invoices perfectly. Highly recommended.",
