@@ -13,6 +13,7 @@ import AIChatMentor from "@/components/AIChatMentor";
 import BalanceSection from "@/components/BalanceSection";
 import CreateAlertModal from "@/components/alerts/create-alert-modal";
 import { currencyPairs, platforms, CurrencyPair, Platform, getBestPlatformForPair, formatCurrency, getAdjustedPlatformRate } from "@/lib/currency-data";
+import Background from "@/components/Background";
 import SavingsWidget from "@/components/transactions/savings-widget";
 import { useQuery } from "convex/react";
 // @ts-ignore
@@ -138,9 +139,8 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-[#030712] text-white relative isolate selection:bg-cyan-500/30">
-            {/* Cyber background glow */}
-            <div className="fixed inset-0 pointer-events-none -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(6,182,212,0.12),rgba(255,255,255,0))]" />
+        <div className="min-h-screen bg-transparent text-white relative isolate selection:bg-cyan-500/30">
+            <Background />
 
             {/* Header */}
             <header className="sticky top-0 z-50 border-b border-white/10 bg-[#030712]/80 backdrop-blur-xl">

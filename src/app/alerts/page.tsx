@@ -11,6 +11,7 @@ import { Alert } from '@/lib/types/alert';
 import AlertCard from '@/components/alerts/alert-card';
 import CreateAlertModal from '@/components/alerts/create-alert-modal';
 import ProWaitlistDemo from '@/components/alerts/pro-waitlist';
+import Background from '@/components/Background';
 
 import { useQuery, useMutation } from "convex/react";
 // @ts-ignore
@@ -126,7 +127,8 @@ export default function AlertsPage() {
     });
 
     return (
-        <div className="min-h-screen bg-black text-white">
+        <div className="min-h-screen bg-transparent text-white relative isolate">
+            <Background />
             {/* Header */}
             <header className="sticky top-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
