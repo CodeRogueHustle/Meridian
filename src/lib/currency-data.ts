@@ -37,9 +37,9 @@ export interface Platform {
 
 export const currencyPairs: CurrencyPair[] = [
     {
-        id: 'usd-inr', from: 'USD', to: 'INR', fromFlag: '🇺🇸', toFlag: '🇮🇳', fromCountry: 'us', toCountry: 'in', rate: 95.25, change24h: 0.15, prediction24h: 0.3, confidence: 78,
+        id: 'usd-inr', from: 'USD', to: 'INR', fromFlag: '🇺🇸', toFlag: '🇮🇳', fromCountry: 'us', toCountry: 'in', rate: 95.4028, change24h: 0.15, prediction24h: 0.3, confidence: 78,
         chartData: [
-            { name: "Mon", rate: 94.80 }, { name: "Tue", rate: 94.95 }, { name: "Wed", rate: 95.10 }, { name: "Thu", rate: 95.05 }, { name: "Fri", rate: 95.20 }, { name: "Sat", rate: 95.30 }, { name: "Sun", rate: 95.25 }
+            { name: "Mon", rate: 94.95 }, { name: "Tue", rate: 95.10 }, { name: "Wed", rate: 95.25 }, { name: "Thu", rate: 95.20 }, { name: "Fri", rate: 95.35 }, { name: "Sat", rate: 95.45 }, { name: "Sun", rate: 95.4028 }
         ]
     },
     {
