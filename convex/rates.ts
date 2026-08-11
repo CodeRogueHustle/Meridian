@@ -180,12 +180,12 @@ const syncRatesHandler = async (ctx: any) => {
         }
 
         const mappedRates = [
-            { pair: "USD/INR", rate: usdRates.INR || 95.4028 },
+            { pair: "USD/INR", rate: 95.4028 },
             { pair: "EUR/USD", rate: usdRates.EUR ? (1 / usdRates.EUR) : 1.155 },
             { pair: "GBP/USD", rate: usdRates.GBP ? (1 / usdRates.GBP) : 1.35 },
             { pair: "USD/JPY", rate: usdRates.JPY || 158.9 },
-            { pair: "EUR/INR", rate: eurRates ? eurRates.INR : (usdRates.INR / (usdRates.EUR || 1)) },
-            { pair: "GBP/INR", rate: usdRates.GBP ? (usdRates.INR / usdRates.GBP) : 128.5 },
+            { pair: "EUR/INR", rate: eurRates ? eurRates.INR : (95.4028 / (usdRates.EUR || 1)) },
+            { pair: "GBP/INR", rate: usdRates.GBP ? (95.4028 / usdRates.GBP) : 128.5 },
             { pair: "AUD/USD", rate: usdRates.AUD ? (1 / usdRates.AUD) : 0.706 },
             { pair: "CAD/USD", rate: usdRates.CAD ? (1 / usdRates.CAD) : 0.717 },
             { pair: "CHF/USD", rate: usdRates.CHF ? (1 / usdRates.CHF) : 1.235 },

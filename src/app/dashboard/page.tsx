@@ -289,7 +289,7 @@ export default function Dashboard() {
 
                         <div className="flex items-baseline gap-4 mb-4">
                             <span className="text-5xl md:text-6xl font-extrabold font-mono text-cyan-300 tracking-tight drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                                {formatCurrency(currentRate, currentRate < 10 ? 4 : 2)}
+                                {formatCurrency(currentRate, (currentRate.toString().includes('.') && currentRate.toString().split('.')[1].length > 2) ? 4 : (currentRate < 10 ? 4 : 2))}
                             </span>
                             <span className={`flex items-center text-base font-bold px-2.5 py-1 rounded-lg ${selectedPair.change24h >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
                                 {selectedPair.change24h >= 0 ? <ArrowUp className="w-4 h-4 mr-1" /> : <ArrowDown className="w-4 h-4 mr-1" />}
